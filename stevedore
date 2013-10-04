@@ -283,17 +283,37 @@ FROM stevedore
 #RUN pip install -r /requirements.txt
 #EXPOSE 4000
 #ENV HYPERLOOP_SPEED 850
+
+#Some dev environmental setup
+#comment out if you don't need them
+#RUN yum -y install git curl
+## -- create custom folder to keep dotfile and dev tools customizing softwares
+#RUN mkdir -p /custom/dotfiles/shell
+#RUN chown -R $CURRUID:$CURRUID /custom
+
+## -- Get a custom zshrc
+#RUN curl -o /custom/dotfiles/shell/.zshrc https://raw.github.com/cybersiddhu/dotfiles/master/zsh/zshrc.docker
+#RUN git clone https://github.com/zsh-users/antigen.git /custom/antigen
+
+## -- Make sure it has current user permission
+#RUN chown -R $CURRUID:$CURRUID /custom
+
+## -- Set two env vars needed by zsh 
+#ENV CUSTOMDIR /custom
+#ENV ZDOTDIR /custom/dotfiles/shell
 ##############################################################################
 EOF
     cat >$1/Dockerfile.post <<EOF
 RUN yum -y --exclude=upstart\* update
-RUN yum -y install zsh vim git sudo which man
+RUN yum -y install zsh vim git sudo which man curl
 RUN useradd -m -s /bin/zsh -u $CURRUID $USER
 RUN echo "$USER ALL=(ALL) NOPASSWD: ALL" >/etc/sudoers.d/$USER
 RUN chmod 0440 /etc/sudoers.d/$USER
 RUN cp -a $(which sudo) $(which sudo).real
 ADD sudo /sudo.tmp
 RUN mv /sudo.tmp $(which sudo)
+
+
 WORKDIR $HOME
 ENV HOME $HOME
 ENV STEVEDORE $1
