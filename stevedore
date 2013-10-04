@@ -9,6 +9,8 @@
     exit 1
 }
 DOCKER="sudo docker"
+# save the current working dir
+CURRDIR=${PWD}
 SDROOT=~/.stevedore
 mkdir -p "$SDROOT"
 cd "$SDROOT"
@@ -301,7 +303,7 @@ EOF
 _stevedore_env_start () {
     # Note: don't check env validity, because before first start, environment
     # is not valid yet.
-    $DOCKER run -h stevedore-$1 -d -t -i -v $HOME:$HOME $1 > $1/cid
+    $DOCKER run -h stevedore-$1 -d -t -i -v $CURRDIR:$HOME $1 > $1/cid
 }
 
 _stevedore_env_stop () {
