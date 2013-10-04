@@ -11,6 +11,7 @@
 DOCKER="sudo docker"
 # save the current working dir
 CURRDIR=${PWD}
+CURRUID=$(id -u)
 SDROOT=~/.stevedore
 mkdir -p "$SDROOT"
 cd "$SDROOT"
@@ -286,9 +287,8 @@ FROM stevedore
 EOF
     cat >$1/Dockerfile.post <<EOF
 RUN yum -y --exclude=upstart\* update
-RUN yum -y install zsh vim git sudo
-RUN groupadd $USER
-RUN useradd -m -g $USER -s $SHELL $USER
+RUN yum -y install zsh vim git sudo which man
+RUN useradd -m -s /bin/zsh -u $CURRUID $USER
 RUN echo "$USER ALL=(ALL) NOPASSWD: ALL" >/etc/sudoers.d/$USER
 RUN chmod 0440 /etc/sudoers.d/$USER
 RUN cp -a $(which sudo) $(which sudo).real
@@ -298,7 +298,7 @@ WORKDIR $HOME
 ENV HOME $HOME
 ENV STEVEDORE $1
 USER $USER
-ENTRYPOINT ["$SHELL", "-i", "-l"]
+ENTRYPOINT ["/bin/zsh", "-i", "-l"]
 EOF
 }
 
