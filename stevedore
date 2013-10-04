@@ -286,7 +286,7 @@ FROM stevedore
 EOF
     cat >$1/Dockerfile.post <<EOF
 RUN yum -y --exclude=upstart\* update
-RUN yum -y install zsh vim git
+RUN yum -y install zsh vim git sudo
 RUN groupadd $USER
 RUN useradd -m -g $USER -s $SHELL $USER
 RUN echo "$USER ALL=(ALL) NOPASSWD: ALL" >/etc/sudoers.d/$USER
