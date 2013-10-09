@@ -299,13 +299,14 @@ FROM stevedore
 ## -spf13 vim plugin(+vundle)
 #RUN mkdir -p /custom/dotfiles/vim
 #RUN git clone https://github.com/gmarik/vundle /custom/dotfiles/vim/bundle/vundle
-#RUN git clone https://github.com/spf13/spf13-vim.git /custom/dotfiles/vim/spf13
-#RUN curl -o /custom/dotfiles/vim/.vimrc https://raw.github.com/cybersiddhu/dotfiles/master/vim/vimrc
-#RUN curl -o /custom/dotfiles/vim/.vimrc.bundles.local https://raw.github.com/cybersiddhu/dotfiles/master/vim/vimrc.bundles.local
-#RUN curl -o /custom/dotfiles/vim/.vimrc.local https://raw.github.com/cybersiddhu/dotfiles/master/vim/vimrc.local
+#RUN git clone https://github.com/cybersiddhu/spf13-vim.git -b feature-3.0/container /custom/dotfiles/vim/spf13
+#RUN ln -sf /custom/dotfiles/vim/spf13/.vimrc /custom/dotfiles/vim/.vimrc
 #RUN ln -sf /custom/dotfiles/vim/spf13/.vimrc.bundles /custom/dotfiles/vim/.vimrc.bundles
 #RUN ln -sf /custom/dotfiles/vim/spf13/.vimrc.bundles.fork /custom/dotfiles/vim/.vimrc.bundles.fork
 #RUN ln -sf /custom/dotfiles/vim/spf13/.vimrc.fork /custom/dotfiles/vim/.vimrc.fork
+#RUN ln -sf /custom/dotfiles/vim/spf13/.vimrc.before.local /custom/dotfiles/vim/.vimrc.before.local
+#RUN ln -sf /custom/dotfiles/vim/spf13/.vimrc.local /custom/dotfiles/vim/.vimrc.local
+#RUN ln -sf /custom/dotfiles/vim/spf13/.vimrc.bundles.local /custom/dotfiles/vim/.vimrc.bundles.local
 #ENV VIMDIR /custom/dotfiles/vim
 
 
