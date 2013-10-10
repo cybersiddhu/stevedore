@@ -289,7 +289,8 @@ FROM stevedore
 #RUN yum -y install git curl
 ## -- create custom folder to keep dotfile and dev tools customizing softwares
 #RUN mkdir -p /custom/dotfiles/shell
-## -- Get a custom zshrc
+
+## -- zshrc antigen
 #RUN curl -o /custom/dotfiles/shell/.zshrc https://raw.github.com/cybersiddhu/dotfiles/master/zsh/zshrc.docker
 #RUN git clone https://github.com/zsh-users/antigen.git /custom/antigen
 ## -- Set two env vars needed by zsh 
@@ -308,6 +309,16 @@ FROM stevedore
 #RUN ln -sf /custom/dotfiles/vim/spf13/.vimrc.local /custom/dotfiles/vim/.vimrc.local
 #RUN ln -sf /custom/dotfiles/vim/spf13/.vimrc.bundles.local /custom/dotfiles/vim/.vimrc.bundles.local
 #ENV VIMDIR /custom/dotfiles/vim
+
+## - plenv(+perl build)
+#RUN yum -y install make gcc
+#RUN git clone git://github.com/tokuhirom/plenv.git /custom/plenv
+#RUN git clone git://github.com/tokuhirom/Perl-Build.git  /custom/plenv/plugins/perl-build
+
+## - pyenv(+virtualenv)
+#RUN git clone git://github.com/yyuu/pyenv.git /custom/pyenv
+#RUN git clone git://github.com/yyuu/pyenv-virtualenv.git /custom/pyenv/plugins/pyenv-virtualenv
+
 
 
 ## -- Make sure it has current user permission
