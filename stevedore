@@ -298,6 +298,8 @@ FROM stevedore
 #ENV ZDOTDIR /custom/dotfiles/shell
 
 ## -spf13 vim plugin(+vundle)
+#RUN yum -y install ctags
+#RUN curl http://beyondgrep.com/ack-2.10-single-file > /usr/local/bin/ack && chmod 0755 /usr/local/bin/ack
 #RUN mkdir -p /custom/dotfiles/vim
 #RUN git clone https://github.com/gmarik/vundle /custom/dotfiles/vim/bundle/vundle
 #RUN git clone https://github.com/cybersiddhu/spf13-vim.git -b feature-3.0/container /custom/dotfiles/vim/spf13
