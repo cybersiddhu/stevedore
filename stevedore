@@ -322,7 +322,7 @@ FROM stevedore
 #RUN git clone git://github.com/yyuu/pyenv-virtualenv.git /custom/pyenv/plugins/pyenv-virtualenv
 
 ## - java install
-#RUN yum -y install java-1.6.0-openjdk
+#RUN yum -y install java-1.6.0-openjdk ant ant-antlr tomcat6
 
 
 ## -- Make sure it has current user permission
