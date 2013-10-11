@@ -321,6 +321,8 @@ FROM stevedore
 #RUN git clone git://github.com/yyuu/pyenv.git /custom/pyenv
 #RUN git clone git://github.com/yyuu/pyenv-virtualenv.git /custom/pyenv/plugins/pyenv-virtualenv
 
+## - java install
+#RUN yum -y install java-1.6.0-openjdk
 
 
 ## -- Make sure it has current user permission
