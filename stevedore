@@ -22,8 +22,6 @@ _defcmd () {
 }
 
 DOCKERFILE="FROM centos
-RUN yum -y --exclude=upstart\* update
-RUN yum -y install zsh vim git
 "
 
 ##############################################################################
@@ -336,6 +334,7 @@ EOF
     cat >$1/Dockerfile.post <<EOF
 RUN rpm -ivh http://apt.sw.be/redhat/el6/en/x86_64/rpmforge/RPMS/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
 RUN yum -y update
+RUN yum -y upgrade
 RUN yum -y install zsh vim git sudo which man curl make gcc tmux
 RUN useradd -m -s /bin/zsh -u $CURRUID $USER
 RUN echo "$USER ALL=(ALL) NOPASSWD: ALL" >/etc/sudoers.d/$USER
