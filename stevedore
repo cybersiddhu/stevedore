@@ -290,12 +290,16 @@ FROM stevedore
 ## -- create custom folder to keep dotfile and dev tools customizing softwares
 #RUN mkdir -p /custom/dotfiles/shell
 
-## -- zshrc antigen
+## -- zshrc + antigen 
 #RUN curl -o /custom/dotfiles/shell/.zshrc https://raw.github.com/cybersiddhu/dotfiles/master/zsh/zshrc.docker
 #RUN git clone https://github.com/zsh-users/antigen.git /custom/antigen
 ## -- Set two env vars needed by zsh 
 #ENV CUSTOMDIR /custom
 #ENV ZDOTDIR /custom/dotfiles/shell
+
+## -- tmux
+#RUN mkdir -p /custom/dotfiles/tmux
+#RUN curl -o /custom/dotfiles/tmux/.tmux.conf https://raw.github.com/cybersiddhu/dotfiles/master/tmux/tmux.conf
 
 ## -spf13 vim plugin(+vundle)
 #RUN yum -y install ctags
@@ -330,7 +334,8 @@ FROM stevedore
 ##############################################################################
 EOF
     cat >$1/Dockerfile.post <<EOF
-RUN yum -y --exclude=upstart\* update
+RUN rpm -ivh http://apt.sw.be/redhat/el6/en/x86_64/rpmforge/RPMS/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
+RUN yum -y update
 RUN yum -y install zsh vim git sudo which man curl make gcc tmux
 RUN useradd -m -s /bin/zsh -u $CURRUID $USER
 RUN echo "$USER ALL=(ALL) NOPASSWD: ALL" >/etc/sudoers.d/$USER
