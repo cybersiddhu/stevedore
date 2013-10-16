@@ -313,7 +313,6 @@ FROM stevedore
 #ENV VIMDIR /custom/dotfiles/vim
 
 ## - plenv(+perl build)
-#RUN yum -y install make gcc
 #RUN git clone git://github.com/tokuhirom/plenv.git /custom/plenv
 #RUN git clone git://github.com/tokuhirom/Perl-Build.git  /custom/plenv/plugins/perl-build
 
@@ -332,7 +331,7 @@ FROM stevedore
 EOF
     cat >$1/Dockerfile.post <<EOF
 RUN yum -y --exclude=upstart\* update
-RUN yum -y install zsh vim git sudo which man curl
+RUN yum -y install zsh vim git sudo which man curl make gcc tmux
 RUN useradd -m -s /bin/zsh -u $CURRUID $USER
 RUN echo "$USER ALL=(ALL) NOPASSWD: ALL" >/etc/sudoers.d/$USER
 RUN chmod 0440 /etc/sudoers.d/$USER
