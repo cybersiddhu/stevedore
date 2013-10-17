@@ -21,7 +21,7 @@ _defcmd () {
     HELP="$(printf "%s\n%-10s %s\n\n" "$HELP" "$1" "$2")"
 }
 
-DOCKERFILE="FROM centos
+DOCKERFILE="FROM cybersiddhu/centos6
 "
 
 ##############################################################################
