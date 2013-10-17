@@ -182,7 +182,7 @@ _stevedore_env_build () {
     fi
     $DOCKER images -q $1 >> $1/history
     rm -f $1/sudohist
-    [ -f $1/cid ] && {
+    [ -s $1/cid ] && {
 	echo "Restarting existing container..."
 	_stevedore_env_stop $1
     }
@@ -198,7 +198,7 @@ _stevedore_env_check () {
 	echo "Environment does not exist."
 	exit 1
     }
-    [ -f $1/cid ] || {
+    [ -s $1/cid ] || {
 	echo "Invalid or corrupt environment: cid file is missing."
 	exit 1
     }
