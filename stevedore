@@ -289,38 +289,39 @@ FROM stevedore
 #RUN mkdir -p /custom/dotfiles/shell
 
 ## -- zshrc + antigen 
-#RUN curl -o /custom/dotfiles/shell/.zshrc https://raw.github.com/cybersiddhu/dotfiles/master/zsh/zshrc.docker
-#RUN git clone https://github.com/zsh-users/antigen.git /custom/antigen
+#RUN curl -o /custom/dotfiles/shell/.zshrc https://raw.github.com/cybersiddhu/dotfiles/master/zsh/zshrc.docker && \
+#  git clone https://github.com/zsh-users/antigen.git /custom/antigen
 ## -- Set two env vars needed by zsh 
 #ENV CUSTOMDIR /custom
 #ENV ZDOTDIR /custom/dotfiles/shell
 
 ## -- tmux
-#RUN mkdir -p /custom/dotfiles/tmux
-#RUN curl -o /custom/dotfiles/tmux/.tmux.conf https://raw.github.com/cybersiddhu/dotfiles/master/tmux/tmux.conf
+#RUN rpm -ivh http://apt.sw.be/redhat/el6/en/x86_64/rpmforge/RPMS/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm && \
+# yum -y update && yum -y install tmux && mkdir -p /custom/dotfiles/tmux && \
+# curl -o /custom/dotfiles/tmux/.tmux.conf https://raw.github.com/cybersiddhu/dotfiles/master/tmux/tmux.conf
 
 ## -spf13 vim plugin(+vundle)
-#RUN yum -y install ctags
-#RUN curl http://beyondgrep.com/ack-2.10-single-file > /usr/local/bin/ack && chmod 0755 /usr/local/bin/ack
-#RUN mkdir -p /custom/dotfiles/vim
-#RUN git clone https://github.com/gmarik/vundle /custom/dotfiles/vim/bundle/vundle
-#RUN git clone https://github.com/cybersiddhu/spf13-vim.git -b feature-3.0/container /custom/dotfiles/vim/spf13
-#RUN ln -sf /custom/dotfiles/vim/spf13/.vimrc /custom/dotfiles/vim/.vimrc
-#RUN ln -sf /custom/dotfiles/vim/spf13/.vimrc.bundles /custom/dotfiles/vim/.vimrc.bundles
-#RUN ln -sf /custom/dotfiles/vim/spf13/.vimrc.bundles.fork /custom/dotfiles/vim/.vimrc.bundles.fork
-#RUN ln -sf /custom/dotfiles/vim/spf13/.vimrc.fork /custom/dotfiles/vim/.vimrc.fork
-#RUN ln -sf /custom/dotfiles/vim/spf13/.vimrc.before.local /custom/dotfiles/vim/.vimrc.before.local
-#RUN ln -sf /custom/dotfiles/vim/spf13/.vimrc.local /custom/dotfiles/vim/.vimrc.local
-#RUN ln -sf /custom/dotfiles/vim/spf13/.vimrc.bundles.local /custom/dotfiles/vim/.vimrc.bundles.local
+#RUN yum -y install ctags && \
+# curl http://beyondgrep.com/ack-2.10-single-file > /usr/local/bin/ack && chmod 0755 /usr/local/bin/ack && \
+# mkdir -p /custom/dotfiles/vim
+#RUN git clone https://github.com/gmarik/vundle /custom/dotfiles/vim/bundle/vundle && \
+# git clone https://github.com/cybersiddhu/spf13-vim.git -b feature-3.0/container /custom/dotfiles/vim/spf13 && \
+# ln -sf /custom/dotfiles/vim/spf13/.vimrc /custom/dotfiles/vim/.vimrc && \
+# ln -sf /custom/dotfiles/vim/spf13/.vimrc.bundles /custom/dotfiles/vim/.vimrc.bundles && \
+# ln -sf /custom/dotfiles/vim/spf13/.vimrc.bundles.fork /custom/dotfiles/vim/.vimrc.bundles.fork && \
+# ln -sf /custom/dotfiles/vim/spf13/.vimrc.fork /custom/dotfiles/vim/.vimrc.fork && \
+# ln -sf /custom/dotfiles/vim/spf13/.vimrc.before.local /custom/dotfiles/vim/.vimrc.before.local && \
+# ln -sf /custom/dotfiles/vim/spf13/.vimrc.local /custom/dotfiles/vim/.vimrc.local && \
+# ln -sf /custom/dotfiles/vim/spf13/.vimrc.bundles.local /custom/dotfiles/vim/.vimrc.bundles.local
 #ENV VIMDIR /custom/dotfiles/vim
 
 ## - plenv(+perl build)
-#RUN git clone git://github.com/tokuhirom/plenv.git /custom/plenv
-#RUN git clone git://github.com/tokuhirom/Perl-Build.git  /custom/plenv/plugins/perl-build
+#RUN git clone git://github.com/tokuhirom/plenv.git /custom/plenv && \
+# git clone git://github.com/tokuhirom/Perl-Build.git  /custom/plenv/plugins/perl-build
 
 ## - pyenv(+virtualenv)
-#RUN git clone git://github.com/yyuu/pyenv.git /custom/pyenv
-#RUN git clone git://github.com/yyuu/pyenv-virtualenv.git /custom/pyenv/plugins/pyenv-virtualenv
+#RUN git clone git://github.com/yyuu/pyenv.git /custom/pyenv && \
+# git clone git://github.com/yyuu/pyenv-virtualenv.git /custom/pyenv/plugins/pyenv-virtualenv
 
 ## - java install
 #RUN yum -y install java-1.6.0-openjdk ant ant-antlr tomcat6
@@ -332,14 +333,10 @@ FROM stevedore
 ##############################################################################
 EOF
     cat >$1/Dockerfile.post <<EOF
-RUN rpm -ivh http://apt.sw.be/redhat/el6/en/x86_64/rpmforge/RPMS/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
-RUN yum -y update
-RUN yum -y upgrade
-RUN yum -y install zsh vim git sudo which man curl make gcc tmux
-RUN useradd -m -s /bin/zsh -u $CURRUID $USER
-RUN echo "$USER ALL=(ALL) NOPASSWD: ALL" >/etc/sudoers.d/$USER
-RUN chmod 0440 /etc/sudoers.d/$USER
-RUN cp -a $(which sudo) $(which sudo).real
+RUN yum -y update && yum -y upgrade && yum -y install zsh vim git sudo which man curl make gcc && \
+ useradd -m -s /bin/zsh -u $CURRUID $USER && \
+ echo "$USER ALL=(ALL) NOPASSWD: ALL" >/etc/sudoers.d/$USER && \
+ chmod 0440 /etc/sudoers.d/$USER && cp -a $(which sudo) $(which sudo).real
 ADD sudo /sudo.tmp
 RUN mv /sudo.tmp $(which sudo)
 
@@ -356,12 +353,14 @@ _stevedore_env_start () {
     # Note: don't check env validity, because before first start, environment
     # is not valid yet.
     $DOCKER run -h stevedore-$1 -d -t -i -v $CURRDIR:$HOME $1 > $1/cid
+    echo "started the container " $(cat $1/cid)
 }
 
 _stevedore_env_stop () {
     _stevedore_env_check $1
     $DOCKER kill $(cat $1/cid) >/dev/null
     $DOCKER wait $(cat $1/cid) >/dev/null
+    echo "Stopped the container..."  $(cat $1/cid)
 }
 
 ##############################################################################
