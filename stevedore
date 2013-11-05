@@ -286,11 +286,11 @@ FROM stevedore
 #comment out if you don't need them
 #RUN yum -y install git curl
 ## -- create custom folder to keep dotfile and dev tools customizing softwares
-#RUN mkdir -p /custom/dotfiles/shell
+#RUN mkdir -p /custom/dotfiles/shell 
 
 ## -- zshrc + antigen 
 #RUN curl -o /custom/dotfiles/shell/.zshrc https://raw.github.com/cybersiddhu/dotfiles/master/zsh/zshrc.docker && \
-#  git clone https://github.com/zsh-users/antigen.git /custom/antigen
+#  git clone https://github.com/zsh-users/antigen.git /custom/antigen && mkdir -p /custom/dotfiles/.antigen
 ## -- Set two env vars needed by zsh 
 #ENV CUSTOMDIR /custom
 #ENV ZDOTDIR /custom/dotfiles/shell
