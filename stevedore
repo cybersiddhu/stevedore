@@ -320,6 +320,7 @@ FROM stevedore
 # git clone git://github.com/tokuhirom/Perl-Build.git  /custom/plenv/plugins/perl-build
 
 ## - pyenv(+virtualenv)
+#RUN yum -y install zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-dev
 #RUN git clone git://github.com/yyuu/pyenv.git /custom/pyenv && \
 # git clone git://github.com/yyuu/pyenv-virtualenv.git /custom/pyenv/plugins/pyenv-virtualenv
 
