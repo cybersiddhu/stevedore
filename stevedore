@@ -276,15 +276,7 @@ EOF
 FROM stevedore
 ##############################################################################
 # Enter custom Dockerfile commands here.
-#RUN apt-get -qy install ...
-#ADD http://shipyardassets.s3.amazonaws.com/requirements.txt /
-#RUN pip install -r /requirements.txt
-#EXPOSE 4000
-#ENV HYPERLOOP_SPEED 850
-
-#Some dev environmental setup
 #comment out if you don't need them
-#RUN yum -y install git curl
 ## -- create custom folder to keep dotfile and dev tools customizing softwares
 #RUN mkdir -p /custom/dotfiles/shell 
 
@@ -300,7 +292,7 @@ FROM stevedore
 # curl -o /custom/dotfiles/tmux/.tmux.conf https://raw.github.com/cybersiddhu/dotfiles/master/tmux/tmux.conf
 
 ## -spf13 vim plugin(+vundle)
-#RUN yum -y install ctags && 
+#RUN yum -y install ctags && \
 # curl http://beyondgrep.com/ack-2.10-single-file > /usr/local/bin/ack && chmod 0755 /usr/local/bin/ack && \
 # mkdir -p /custom/dotfiles/vim
 #RUN git clone https://github.com/gmarik/vundle /custom/dotfiles/vim/bundle/vundle && \
@@ -319,9 +311,9 @@ FROM stevedore
 # git clone git://github.com/tokuhirom/Perl-Build.git  /custom/plenv/plugins/perl-build
 
 ## - pyenv(+virtualenv)
-#RUN yum -y install zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-dev
-#RUN git clone git://github.com/yyuu/pyenv.git /custom/pyenv &&
-# git clone git://github.com/yyuu/pyenv-virtualenv.git /custom/pyenv/plugins/pyenv-virtualenv
+#RUN yum -y install zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel && \
+#git clone git://github.com/yyuu/pyenv.git /custom/pyenv && \
+#git clone git://github.com/yyuu/pyenv-virtualenv.git /custom/pyenv/plugins/pyenv-virtualenv
 
 
 ## - java install
