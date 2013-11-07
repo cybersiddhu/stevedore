@@ -296,12 +296,11 @@ FROM stevedore
 #ENV ZDOTDIR /custom/dotfiles/shell
 
 ## -- tmux
-#RUN rpm -ivh http://apt.sw.be/redhat/el6/en/x86_64/rpmforge/RPMS/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm && \
-# yum -y update && yum -y install tmux && mkdir -p /custom/dotfiles/tmux && \
+# RUN yum -y update && yum -y install tmux && mkdir -p /custom/dotfiles/tmux && \
 # curl -o /custom/dotfiles/tmux/.tmux.conf https://raw.github.com/cybersiddhu/dotfiles/master/tmux/tmux.conf
 
 ## -spf13 vim plugin(+vundle)
-#RUN yum -y install ctags && \
+#RUN yum -y install ctags && 
 # curl http://beyondgrep.com/ack-2.10-single-file > /usr/local/bin/ack && chmod 0755 /usr/local/bin/ack && \
 # mkdir -p /custom/dotfiles/vim
 #RUN git clone https://github.com/gmarik/vundle /custom/dotfiles/vim/bundle/vundle && \
@@ -321,7 +320,7 @@ FROM stevedore
 
 ## - pyenv(+virtualenv)
 #RUN yum -y install zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-dev
-#RUN git clone git://github.com/yyuu/pyenv.git /custom/pyenv && ln -s /proc/self/fd /dev/fd
+#RUN git clone git://github.com/yyuu/pyenv.git /custom/pyenv &&
 # git clone git://github.com/yyuu/pyenv-virtualenv.git /custom/pyenv/plugins/pyenv-virtualenv
 
 
@@ -335,7 +334,7 @@ FROM stevedore
 ##############################################################################
 EOF
     cat >$1/Dockerfile.post <<EOF
-RUN yum -y update && yum -y upgrade && yum -y install zsh vim git sudo which man curl make gcc && \
+RUN yum -y update && yum -y upgrade && yum -y install zsh git sudo which man curl make gcc && \
  useradd -m -s /bin/zsh -u $CURRUID $USER && \
  echo "$USER ALL=(ALL) NOPASSWD: ALL" >/etc/sudoers.d/$USER && \
  chmod 0440 /etc/sudoers.d/$USER && cp -a $(which sudo) $(which sudo).real && \
