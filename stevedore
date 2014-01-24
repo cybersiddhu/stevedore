@@ -273,10 +273,14 @@ EOF
     chmod +x $1/sudo
     echo "FROM stevedore" > $1/Dockerfile.post
     curl https://raw2.github.com/cybersiddhu/stevedore/master/modules/shell >> $1/Dockerfile.post
-    for module in ${@[2,-1]};
-    do
-        curl https://raw2.github.com/cybersiddhu/stevedore/master/modules/${module}  >> $1/Dockerfile.post
-    done
+
+    if [ $# -ge 1 ]; then
+        for module in ${@[2,-1]};
+        do
+            curl https://raw2.github.com/cybersiddhu/stevedore/master/modules/${module}  >> $1/Dockerfile.post
+        done
+    fi
+
     cat >>$1/Dockerfile.post <<EOF
 
 ##############################################################################
