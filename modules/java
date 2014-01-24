@@ -1,0 +1,2 @@
+## - java install
+#RUN yum -y install java-1.6.0-openjdk ant ant-antlr tomcat6

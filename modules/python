@@ -1,0 +1,5 @@
+## - pyenv(+virtualenv)
+#RUN yum -y install zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel && \
+#git clone git://github.com/yyuu/pyenv.git /custom/pyenv && \
+#git clone git://github.com/yyuu/pyenv-virtualenv.git /custom/pyenv/plugins/pyenv-virtualenv
+

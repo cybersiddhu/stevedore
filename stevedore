@@ -21,7 +21,7 @@ _defcmd () {
     HELP="$(printf "%s\n%-10s %s\n\n" "$HELP" "$1" "$2")"
 }
 
-DOCKERFILE="FROM cybersiddhu/centos6
+DOCKERFILE="FROM tianon/centos
 "
 
 ##############################################################################
@@ -103,7 +103,7 @@ _stevedore_cmd_log () {
 
 _defcmd new "Create a new environment."
 _stevedore_cmd_new () {
-    _stevedore_env_new $1
+    _stevedore_env_new $@
     _stevedore_env_build $1
 }
 
@@ -166,7 +166,7 @@ _stevedore_cmd_url () {
 # Internal functions manipulating environments
 ##############################################################################
 
-_stevedore_env_build () {
+_stevedore_tianon/centosenv_build () {
     $DOCKER images -q stevedore | grep -q . || {
 	echo "The stevedore base image was not found; building it now."
 	_stevedore_cmd_init
@@ -272,60 +272,26 @@ echo "\$@" >> \$HOME/.stevedore/\$STEVEDORE/sudohist
 exec sudo.real "\$@"
 EOF
     chmod +x $1/sudo
-    cat >$1/Dockerfile.pre <<EOF
-FROM stevedore
+    echo "FROM stevedore" > $1/Dockerfile.post
+    curl https://raw2.github.com/cybersiddhu/stevedore/master/modules/shell >> $1/Dockerfile.post
+    for module in ${@[2,-1]};
+    do
+        curl https://raw2.github.com/cybersiddhu/stevedore/master/modules/${module}  >> $1/Dockerfile.post
+    done
+    cat >>$1/Dockerfile.post <<EOF
+
 ##############################################################################
-# Enter custom Dockerfile commands here.
-#comment out if you don't need them
-## -- create custom folder to keep dotfile and dev tools customizing softwares
-#RUN mkdir -p /custom/dotfiles/shell 
-
-## -- zshrc + antigen 
-#RUN curl -o /custom/dotfiles/shell/.zshrc https://raw.github.com/cybersiddhu/dotfiles/master/zsh/zshrc.docker && \
-#  git clone https://github.com/zsh-users/antigen.git /custom/antigen && mkdir -p /custom/dotfiles/.antigen
-## -- Set two env vars needed by zsh 
-#ENV CUSTOMDIR /custom
-#ENV ZDOTDIR /custom/dotfiles/shell
-
-## -- tmux
-# RUN yum -y update && yum -y install tmux && mkdir -p /custom/dotfiles/tmux && \
-# curl -o /custom/dotfiles/tmux/.tmux.conf https://raw.github.com/cybersiddhu/dotfiles/master/tmux/tmux.conf
-
-## -spf13 vim plugin(+vundle)
-#RUN yum -y install ctags && \
-# curl http://beyondgrep.com/ack-2.10-single-file > /usr/local/bin/ack && chmod 0755 /usr/local/bin/ack && \
-# mkdir -p /custom/dotfiles/vim
-#RUN git clone https://github.com/gmarik/vundle /custom/dotfiles/vim/bundle/vundle && \
-# git clone https://github.com/cybersiddhu/spf13-vim.git -b feature-3.0/container /custom/dotfiles/vim/spf13 && \
-# ln -sf /custom/dotfiles/vim/spf13/.vimrc /custom/dotfiles/vim/.vimrc && \
-# ln -sf /custom/dotfiles/vim/spf13/.vimrc.bundles /custom/dotfiles/vim/.vimrc.bundles && \
-# ln -sf /custom/dotfiles/vim/spf13/.vimrc.bundles.fork /custom/dotfiles/vim/.vimrc.bundles.fork && \
-# ln -sf /custom/dotfiles/vim/spf13/.vimrc.fork /custom/dotfiles/vim/.vimrc.fork && \
-# ln -sf /custom/dotfiles/vim/spf13/.vimrc.before.local /custom/dotfiles/vim/.vimrc.before.local && \
-# ln -sf /custom/dotfiles/vim/spf13/.vimrc.local /custom/dotfiles/vim/.vimrc.local && \
-# ln -sf /custom/dotfiles/vim/spf13/.vimrc.bundles.local /custom/dotfiles/vim/.vimrc.bundles.local
-#ENV VIMDIR /custom/dotfiles/vim
-
-## - plenv(+perl build)
-#RUN git clone git://github.com/tokuhirom/plenv.git /custom/plenv && \
-# git clone git://github.com/tokuhirom/Perl-Build.git  /custom/plenv/plugins/perl-build
-
-## - pyenv(+virtualenv)
-#RUN yum -y install zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel && \
-#git clone git://github.com/yyuu/pyenv.git /custom/pyenv && \
-#git clone git://github.com/yyuu/pyenv-virtualenv.git /custom/pyenv/plugins/pyenv-virtualenv
-
-
-## - java install
-#RUN yum -y install java-1.6.0-openjdk ant ant-antlr tomcat6
-
-
 ## -- Make sure it has current user permission
-#RUN chown -R $CURRUID:$CURRUID /custom
+RUN chown -R $CURRUID:$CURRUID /custom
+WORKDIR $HOME
+ENV HOME $HOME
+ENV STEVEDORE $1
+USER $USER
+ENTRYPOINT ["/bin/zsh", "-i", "-l"]
 
 ##############################################################################
 EOF
-    cat >$1/Dockerfile.post <<EOF
+    cat >$1/Dockerfile.pre <<EOF
 RUN yum -y update && yum -y upgrade && yum -y install zsh git sudo which man curl make gcc && \
  useradd -m -s /bin/zsh -u $CURRUID $USER && \
  echo "$USER ALL=(ALL) NOPASSWD: ALL" >/etc/sudoers.d/$USER && \
@@ -335,11 +301,6 @@ ADD sudo /sudo.tmp
 RUN mv /sudo.tmp $(which sudo)
 
 
-WORKDIR $HOME
-ENV HOME $HOME
-ENV STEVEDORE $1
-USER $USER
-ENTRYPOINT ["/bin/zsh", "-i", "-l"]
 EOF
 }
 
