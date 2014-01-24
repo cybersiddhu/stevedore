@@ -7,7 +7,8 @@ git clone https://github.com/zsh-users/antigen.git /custom/antigen && \
 mkdir -p /custom/dotfiles/.antigen
 
 ## -- tmux
-RUN yum -y update && yum -y install tmux && mkdir -p /custom/dotfiles/tmux  && \
+RUN rpm -ivh http://mirror.chpc.utah.edu/pub/epel/6/i386/epel-release-6-8.noarch.rpm && \
+yum -y install tmux && mkdir -p /custom/dotfiles/tmux  && \
 curl -o /custom/dotfiles/tmux/.tmux.conf https://raw.github.com/cybersiddhu/dotfiles/master/tmux/tmux.conf
 
 ENV CUSTOMDIR /custom
