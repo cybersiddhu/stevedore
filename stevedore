@@ -78,14 +78,14 @@ _stevedore_cmd_init () {
     BUILDDIR=/tmp/stevedore.$$
     mkdir $BUILDDIR
     echo "$DOCKERFILE" > $BUILDDIR/Dockerfile
-    $DOCKER build -rm -t stevedore $BUILDDIR | tee $BUILDDIR/log | grep ^Step
-    if tail -n 1 $BUILDDIR/log | grep -q Successfully
+    $DOCKER build -rm -t stevedore $BUILDDIR | tee $BUILDDIR/log 
+    if grep -q Successfully $BUILDDIR/log
     then
-	echo "Successfully created stevedore base image."
-	rm -rf $BUILDDIR
+	    echo "Successfully created stevedore base image."
+	    rm -rf $BUILDDIR
     else
-	echo "Build failed. Check $BUILDDIR/log for details."
-	exit 1
+	    echo "Build failed. Check $BUILDDIR/log for details."
+	    exit 1
     fi
 }
 
@@ -274,7 +274,7 @@ EOF
     echo "FROM stevedore" > $1/Dockerfile.post
     curl https://raw2.github.com/cybersiddhu/stevedore/master/modules/shell >> $1/Dockerfile.post
 
-    if [ $# -ge 1 ]; then
+    if [ $# -ge 2 ]; then
         for module in ${@[2,-1]};
         do
             curl https://raw2.github.com/cybersiddhu/stevedore/master/modules/${module}  >> $1/Dockerfile.post
