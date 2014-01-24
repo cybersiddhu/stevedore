@@ -299,7 +299,6 @@ RUN yum -y update && yum -y upgrade && yum -y install zsh git sudo which man cur
  useradd -m -s /bin/zsh -u $CURRUID $USER && \
  echo "$USER ALL=(ALL) NOPASSWD: ALL" >/etc/sudoers.d/$USER && \
  chmod 0440 /etc/sudoers.d/$USER && cp -a $(which sudo) $(which sudo).real && \
- ln -s /proc/self/fd /dev/fd
 ADD sudo /sudo.tmp
 RUN mv /sudo.tmp $(which sudo)
 
