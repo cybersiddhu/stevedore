@@ -212,8 +212,8 @@ _stevedore_env_check () {
 
 _stevedore_env_destroy () {
     _stevedore_env_check $1
-    echo -n "Deleting container: "
-    $DOCKER rm $(cat $1/cid)
+    #echo -n "Deleting container: "
+    #$DOCKER rm $(cat $1/cid)
     echo "Deleting tagged images..."
     $DOCKER rmi $1
     rm -rf $1
@@ -307,7 +307,7 @@ EOF
 _stevedore_env_start () {
     # Note: don't check env validity, because before first start, environment
     # is not valid yet.
-    $DOCKER run -h stevedore-$1 -d -t -i -v $CURRDIR:$HOME $1 > $1/cid
+    $DOCKER run -h stevedore-$1 -d -t -i -v $CURRDIR:$HOME $1 > $1/cid 2>/dev/null
     echo "started the container " $(cat $1/cid)
 }
 
@@ -316,6 +316,8 @@ _stevedore_env_stop () {
     $DOCKER kill $(cat $1/cid) >/dev/null
     $DOCKER wait $(cat $1/cid) >/dev/null
     echo "Stopped the container..."  $(cat $1/cid)
+    $DOCKER rm $(cat $1/cid)
+    echo -n "Deleted container: "
 }
 
 ##############################################################################
