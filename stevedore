@@ -8,7 +8,7 @@
     echo "Could not find Docker binary. Aborting."
     exit 1
 }
-DOCKER="sudo docker"
+DOCKER="docker"
 # save the current working dir
 CURRDIR=${PWD}
 CURRUID=$(id -u)
@@ -21,8 +21,7 @@ _defcmd () {
     HELP="$(printf "%s\n%-10s %s\n\n" "$HELP" "$1" "$2")"
 }
 
-DOCKERFILE="FROM tianon/centos
-"
+DOCKERFILE="FROM tianon/centos"
 
 ##############################################################################
 # Commands
@@ -166,7 +165,7 @@ _stevedore_cmd_url () {
 # Internal functions manipulating environments
 ##############################################################################
 
-_stevedore_tianon/centosenv_build () {
+_stevedore_env_build () {
     $DOCKER images -q stevedore | grep -q . || {
 	echo "The stevedore base image was not found; building it now."
 	_stevedore_cmd_init
