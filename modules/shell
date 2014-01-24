@@ -1,0 +1,11 @@
+## -- create custom folder to keep dotfile and dev tools customizing softwares
+mkdir -p /custom/dotfiles/shell 
+
+## -- zshrc + antigen 
+curl -o /custom/dotfiles/shell/.zshrc https://raw.github.com/cybersiddhu/dotfiles/master/zsh/zshrc.docker
+git clone https://github.com/zsh-users/antigen.git /custom/antigen 
+mkdir -p /custom/dotfiles/.antigen
+
+## -- tmux
+yum -y update && yum -y install tmux && mkdir -p /custom/dotfiles/tmux 
+curl -o /custom/dotfiles/tmux/.tmux.conf https://raw.github.com/cybersiddhu/dotfiles/master/tmux/tmux.conf
