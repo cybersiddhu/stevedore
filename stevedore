@@ -79,7 +79,7 @@ _stevedore_cmd_init () {
     BUILDDIR=/tmp/stevedore.$$
     mkdir $BUILDDIR
     echo "$DOCKERFILE" > $BUILDDIR/Dockerfile
-    $DOCKER build -t stevedore $BUILDDIR | tee $BUILDDIR/log | grep ^Step
+    $DOCKER build -rm -t stevedore $BUILDDIR | tee $BUILDDIR/log | grep ^Step
     if tail -n 1 $BUILDDIR/log | grep -q Successfully
     then
 	echo "Successfully created stevedore base image."
@@ -172,7 +172,7 @@ _stevedore_tianon/centosenv_build () {
 	_stevedore_cmd_init
     }
     cat $1/Dockerfile.pre $1/Dockerfile.post > $1/Dockerfile
-    $DOCKER build -t $1 $1 | tee $1/build.log | grep ^Step
+    $DOCKER build -rm -t $1 $1 | tee $1/build.log | grep ^Step
     if tail -n 1 $1/build.log | grep -q Successfully
     then
 	echo "Build successful."
@@ -307,7 +307,7 @@ EOF
 _stevedore_env_start () {
     # Note: don't check env validity, because before first start, environment
     # is not valid yet.
-    $DOCKER run -h stevedore-$1 -d -t -i -v $CURRDIR:$HOME $1 > $1/cid
+    $DOCKER run -h stevedore-$1 -d -v $CURRDIR:$HOME $1 > $1/cid
     echo "started the container " $(cat $1/cid)
 }
 
