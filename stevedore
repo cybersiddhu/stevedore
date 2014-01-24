@@ -271,7 +271,6 @@ echo "\$@" >> \$HOME/.stevedore/\$STEVEDORE/sudohist
 exec sudo.real "\$@"
 EOF
     chmod +x $1/sudo
-    echo "FROM stevedore" > $1/Dockerfile.post
     curl https://raw2.github.com/cybersiddhu/stevedore/master/modules/shell >> $1/Dockerfile.post
 
     if [ $# -ge 2 ]; then
@@ -295,6 +294,7 @@ ENTRYPOINT ["/bin/zsh", "-i", "-l"]
 ##############################################################################
 EOF
     cat >$1/Dockerfile.pre <<EOF
+FROM stevedore
 RUN yum -y update && yum -y upgrade && yum -y install zsh git sudo which man curl make gcc && \
  useradd -m -s /bin/zsh -u $CURRUID $USER && \
  echo "$USER ALL=(ALL) NOPASSWD: ALL" >/etc/sudoers.d/$USER && \
