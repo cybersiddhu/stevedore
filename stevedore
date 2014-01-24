@@ -180,12 +180,11 @@ _stevedore_env_build () {
 	exit 1
     fi
     $DOCKER images -q $1 >> $1/history
-    rm -f $1/sudohist
     [ -s $1/cid ] && {
 	echo "Restarting existing container..."
 	_stevedore_env_stop $1
     }
-    _stevedore_env_start $1
+    #_stevedore_env_start $1
 }
 
 _stevedore_env_check () {
@@ -197,10 +196,10 @@ _stevedore_env_check () {
 	echo "Environment does not exist."
 	exit 1
     }
-    [ -s $1/cid ] || {
-	echo "Invalid or corrupt environment: cid file is missing."
-	exit 1
-    }
+    #[ -s $1/cid ] || {
+	#echo "Invalid or corrupt environment: cid file is missing."
+	#exit 1
+    #}
     [ -f $1/Dockerfile ] || {
 	echo "Invalid or corrupt environment: Dockerfile is missing."
 	exit 1
@@ -223,6 +222,7 @@ _stevedore_env_destroy () {
 
 _stevedore_env_enter () {
     _stevedore_env_check $1
+    _stevedore_env_start $1
     CID=$(cat $1/cid)
     $DOCKER inspect $CID | grep -q Running...true || {
 	$DOCKER start $CID >/dev/null
@@ -231,6 +231,7 @@ _stevedore_env_enter () {
     echo "Press ENTER to enter environment $1."
     $DOCKER attach $CID
     echo "Exited environment $1."
+    _stevedore_env_stop $1
 }
 
 _stevedore_env_genrun () {
@@ -284,6 +285,7 @@ RUN chown -R $CURRUID:$CURRUID /custom
 WORKDIR $HOME
 ENV HOME $HOME
 ENV STEVEDORE $1
+ENV TERM screen
 USER $USER
 ENTRYPOINT ["/bin/zsh", "-i", "-l"]
 
@@ -305,7 +307,7 @@ EOF
 _stevedore_env_start () {
     # Note: don't check env validity, because before first start, environment
     # is not valid yet.
-    $DOCKER run -h stevedore-$1 -d -v $CURRDIR:$HOME $1 > $1/cid
+    $DOCKER run -h stevedore-$1 -d -t -i -v $CURRDIR:$HOME $1 > $1/cid
     echo "started the container " $(cat $1/cid)
 }
 
