@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 
 [ "$STEVEDORE" ] && {
     echo "It looks like you are already in environment $STEVEDORE. Aborting."
@@ -293,7 +293,7 @@ ENTRYPOINT ["/bin/zsh", "-i", "-l"]
 EOF
     cat >$1/Dockerfile.pre <<EOF
 FROM stevedore
-RUN yum -y update && yum -y upgrade && yum -y install zsh git sudo which man curl make gcc && \
+RUN yum -y update && yum -y upgrade && yum -y install zsh git sudo which man curl make gcc tar && \
  useradd -m -s /bin/zsh -u $CURRUID $USER && \
  echo "$USER ALL=(ALL) NOPASSWD: ALL" >/etc/sudoers.d/$USER && \
  chmod 0440 /etc/sudoers.d/$USER && cp -a $(which sudo) $(which sudo).real 
