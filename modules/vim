@@ -1,5 +1,6 @@
-RUN mkdir -p /custom/dotfiles/vim && mkdir -p /custom/runner
+RUN mkdir -p /custom/bin && mkdir -p /custom/dotfiles/vim && mkdir -p /custom/runner
 ADD https://raw2.github.com/cybersiddhu/stevedore/master/modules/viminstall /custom/runner/viminstall
+RUN chmod u+x /custom/runner/viminstall 
 RUN /custom/runner/viminstall
 
 ## -spf13 vim plugin(+vundle)
