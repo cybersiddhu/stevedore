@@ -7,7 +7,7 @@ VIMVERSION=vim-7.4
 VIMURL=ftp://ftp.vim.org/pub/vim/unix/${VIMVERSION}.tar.bz2
 TMPVIM=$(mktemp -d)
 cd $TMPVIM && curl -s -O $VIMURL
-tar xvjf ${VIMVERSION}.tar.bz2 && cd ${VIMVERSION}
+tar xvjf ${VIMVERSION}.tar.bz2 && cd vim74
 
 #Check for python installation
 PYFULL=3.3.2
