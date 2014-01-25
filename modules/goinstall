@@ -1,0 +1,11 @@
+#!/bin/zsh
+
+GOTARBALL=go1.2.src.tar.gz
+GOURL=https://go.googlecode.com/files/${GOTARBALL}
+GODIR=/custom/golang
+mkdir -p $GODIR
+
+TMPGO=$(mktemp -d)
+cd $TMPGO && curl -s -O $GOURL
+tar xvzf $GOTARBALL -C $GODIR && cd $GODIR/go/src
+./all.bash

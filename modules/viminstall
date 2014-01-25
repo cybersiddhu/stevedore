@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 #Install latest vim and include python support if present
 CUSTOMDIR=/custom
