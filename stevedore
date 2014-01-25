@@ -46,7 +46,7 @@ _stevedore_cmd_checkpoint () {
 
 _defcmd destroy "Destroy an environment. This cannot be undone."
 _stevedore_cmd_destroy () {
-    _stevedore_env_stop $1
+    #_stevedore_env_stop $1
     _stevedore_env_destroy $1
 }
 
