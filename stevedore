@@ -8,7 +8,7 @@
     echo "Could not find Docker binary. Aborting."
     exit 1
 }
-DOCKER="docker"
+DOCKER=$(which docker)
 # save the current working dir
 CURRDIR=${PWD}
 CURRUID=$(id -u)
@@ -37,23 +37,22 @@ _stevedore_cmd_autoadd () {
 # Do not expose checkpoint and rollback because commit is broken.
 # (It does not propagate EXPOSE, ENTRYPOINT, etc.)
 #_defcmd checkpoint "Record the current state of an environment."
-_stevedore_cmd_checkpoint () {
-    _stevedore_env_check $1
-    N=$(wc -l $1/history)
-    $DOCKER commit -m "Stevedore Checkpoint #$N" $(cat $1/cid) $1 >> $1/history
-    echo "Stored checkpoint #$N for $1."
-}
+#_stevedore_cmd_checkpoint () {
+    #_stevedore_env_check $1
+    #N=$(wc -l $1/history)
+    #$DOCKER commit -m "Stevedore Checkpoint #$N" $(cat $1/cid) $1 >> $1/history
+    #echo "Stored checkpoint #$N for $1."
+#}
 
 _defcmd destroy "Destroy an environment. This cannot be undone."
 _stevedore_cmd_destroy () {
-    #_stevedore_env_stop $1
     _stevedore_env_destroy $1
 }
 
 _defcmd edit "Launch your editor ($VISUAL) to edit and rebuild an environment."
 _stevedore_cmd_edit () {
     _stevedore_env_check $1
-    $VISUAL $1/Dockerfile.pre
+    $VISUAL $1/Dockerfile.post
     _stevedore_env_build $1
 }
 
@@ -67,7 +66,7 @@ _stevedore_cmd_help () {
     echo "$HELP"
 }
 
-_defcmd id "Show the container id of an environment."
+_defcmd id "Show the container id of an running environment."
 _stevedore_cmd_id () {
     _stevedore_env_check $1
     cat $1/cid
@@ -75,9 +74,16 @@ _stevedore_cmd_id () {
 
 _defcmd init "Rebuild the stevedore base image (normally done automatically)."
 _stevedore_cmd_init () {
-    BUILDDIR=/tmp/stevedore.$$
+    if $DOCKER images -q stevedore | grep -q . ; then
+        $DOCKER rmi stevedore
+    fi
+    BUILDDIR=$(mktemp -d)
     mkdir $BUILDDIR
-    echo "$DOCKERFILE" > $BUILDDIR/Dockerfile
+    cat >> $BUILDDIR/Dockerfile <<EOF
+$DOCKERFILE
+RUN yum -y update && yum -y upgrade && yum -y install zsh git sudo which man curl make gcc tar 
+
+EOF
     $DOCKER build -rm -t stevedore $BUILDDIR | tee $BUILDDIR/log 
     if grep -q Successfully $BUILDDIR/log
     then
@@ -115,29 +121,29 @@ _stevedore_cmd_rebuild () {
 # Do not expose checkpoint and rollback because commit is broken.
 # (It does not propagate EXPOSE, ENTRYPOINT, etc.)
 #_defcmd rollback "Restore an environment to the last checkpointed state."
-_stevedore_cmd_rollback () {
-    _stevedore_env_check $1
-    _stevedore_env_stop $1
-    _stevedore_env_start $1
-}
+#_stevedore_cmd_rollback () {
+    #_stevedore_env_check $1
+    #_stevedore_env_stop $1
+    #_stevedore_env_start $1
+#}
 
-_defcmd sudohist "Show history of commands that have been started with sudo."
-_stevedore_cmd_sudohist () {
-    _stevedore_env_check $1
-    if [ -f $1/sudohist ]
-    then
-	echo "# sudo history:"
-	cat $1/sudohist
-	grep -q ^[^-] $1/sudohist && {
-	    echo "# I suggest that you add the following to your Dockerfile:"
-	    _stevedore_env_genrun $1
-	    echo "# To add those lines to your Dockerfile and rebuild the"
-	    echo "# environment, run 'stevedore autoadd $1'."
-	}
-    else
-	echo "# No command found in history."
-    fi
-}
+#_defcmd sudohist "Show history of commands that have been started with sudo."
+#_stevedore_cmd_sudohist () {
+    #_stevedore_env_check $1
+    #if [ -f $1/sudohist ]
+    #then
+	#echo "# sudo history:"
+	#cat $1/sudohist
+	#grep -q ^[^-] $1/sudohist && {
+		#echo "# I suggest that you add the following to your Dockerfile:"
+		#_stevedore_env_genrun $1
+		#echo "# To add those lines to your Dockerfile and rebuild the"
+		#echo "# environment, run 'stevedore autoadd $1'."
+	#}
+    #else
+	#echo "# No command found in history."
+    #fi
+#}
 
 _defcmd url "Generate an URL pointing to an environment. Port is optional."
 _stevedore_cmd_url () {
@@ -293,8 +299,7 @@ ENTRYPOINT ["/bin/zsh", "-i", "-l"]
 EOF
     cat >$1/Dockerfile.pre <<EOF
 FROM stevedore
-RUN yum -y update && yum -y upgrade && yum -y install zsh git sudo which man curl make gcc tar && \
- useradd -m -s /bin/zsh -u $CURRUID $USER && \
+RUN useradd -m -s /bin/zsh -u $CURRUID $USER && \
  echo "$USER ALL=(ALL) NOPASSWD: ALL" >/etc/sudoers.d/$USER && \
  chmod 0440 /etc/sudoers.d/$USER && cp -a $(which sudo) $(which sudo).real 
 ADD sudo /sudo.tmp
