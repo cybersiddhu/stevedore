@@ -17,4 +17,4 @@ RUN curl http://beyondgrep.com/ack-2.10-single-file > /usr/local/bin/ack && chmo
 
 ENV VIMDIR /custom/dotfiles/vim
 ADD https://raw2.github.com/cybersiddhu/stevedore/master/modules/vimbundle /custom/runner/vimbundle
-RUN chmod u+x /custom/runner/vimbundle 
+RUN chmod u+x /custom/runner/vimbundle && /custom/runner/vimbundle
