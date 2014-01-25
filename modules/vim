@@ -1,11 +1,10 @@
 RUN mkdir -p /custom/bin && mkdir -p /custom/dotfiles/vim && mkdir -p /custom/runner
 ADD https://raw2.github.com/cybersiddhu/stevedore/master/modules/viminstall /custom/runner/viminstall
-RUN chmod u+x /custom/runner/viminstall 
+RUN chmod u+x /custom/runner/viminstall && yum -y install ctags ncurses ncurses-libs ncurses-devel 
 RUN /custom/runner/viminstall
 
 ## -spf13 vim plugin(+vundle)
-RUN yum -y install ctags && \
- curl http://beyondgrep.com/ack-2.10-single-file > /usr/local/bin/ack && chmod 0755 /usr/local/bin/ack && \
+RUN curl http://beyondgrep.com/ack-2.10-single-file > /usr/local/bin/ack && chmod 0755 /usr/local/bin/ack && \
  git clone https://github.com/gmarik/vundle /custom/dotfiles/vim/bundle/vundle && \
  git clone https://github.com/cybersiddhu/spf13-vim.git -b feature-3.0/container /custom/dotfiles/vim/spf13 && \
  ln -sf /custom/dotfiles/vim/spf13/.vimrc /custom/dotfiles/vim/.vimrc && \
