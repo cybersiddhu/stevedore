@@ -16,4 +16,5 @@ RUN curl http://beyondgrep.com/ack-2.10-single-file > /usr/local/bin/ack && chmo
  ln -sf /custom/dotfiles/vim/spf13/.vimrc.bundles.local /custom/dotfiles/vim/.vimrc.bundles.local
 
 ENV VIMDIR /custom/dotfiles/vim
+RUN /custom/bin/vim -u /custom/dotfiles/vim/.vimrc +BundleInstall +qall
 

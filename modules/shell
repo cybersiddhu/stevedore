@@ -13,4 +13,5 @@ curl -o /custom/dotfiles/tmux/.tmux.conf https://raw.github.com/cybersiddhu/dotf
 
 ENV CUSTOMDIR /custom
 ENV ZDOTDIR /custom/dotfiles/shell
+RUN /bin/zsh /custom/dotfiles/shell/.zshrc
 
