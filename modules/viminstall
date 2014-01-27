@@ -30,7 +30,7 @@ rm -rf $TMPVIM
 
 # setup for powerfile fonts
 curl -L -o /usr/share/fonts/powerlinesymbols.otf https://github.com/Lokaltog/powerline/blob/develop/font/PowerlineSymbols.otf\?raw\=true
-curl -L -o /usr/share/fonts/Inconsolata-powerline.otf https://github.com/Lokaltog/powerline-fonts/blob/master/Inconsolata/Inconsolata%20for%20Powerline.otf?raw=true
+curl -o /usr/share/fonts/Inconsolata-powerline.otf https://raw2.github.com/Lokaltog/powerline-fonts/master/Inconsolata/Inconsolata%20for%20Powerline.otf
 curl -o /etc/fonts/conf.avail/10-powerline-symbols.conf https://raw2.github.com/Lokaltog/powerline/develop/font/10-powerline-symbols.conf
 cd /etc/fonts/conf.d && ln -sf ../conf.avail/10-powerline-symbols.conf .
 fc-cache -vf /usr/share/fonts
