@@ -1,6 +1,6 @@
 RUN mkdir -p /custom/bin && mkdir -p /custom/dotfiles/vim && mkdir -p /custom/runner
 ADD https://raw2.github.com/cybersiddhu/stevedore/master/modules/viminstall /custom/runner/viminstall
-RUN chmod u+x /custom/runner/viminstall && yum -y install ctags ncurses ncurses-libs ncurses-devel 
+RUN chmod u+x /custom/runner/viminstall && yum -y install ctags ncurses ncurses-libs ncurses-devel fontconfig
 RUN /custom/runner/viminstall
 
 ## -spf13 vim plugin(+vundle)
