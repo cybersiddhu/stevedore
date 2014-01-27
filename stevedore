@@ -21,7 +21,7 @@ _defcmd () {
     HELP="$(printf "%s\n%-10s %s\n\n" "$HELP" "$1" "$2")"
 }
 
-DOCKERFILE="FROM tianon/centos"
+DOCKERFILE="FROM centos"
 
 ##############################################################################
 # Commands
@@ -81,7 +81,7 @@ _stevedore_cmd_init () {
     mkdir $BUILDDIR
     cat >> $BUILDDIR/Dockerfile <<EOF
 $DOCKERFILE
-RUN yum -y update && yum -y upgrade && yum -y install zsh git sudo which man curl make gcc tar 
+RUN yum -y update && yum -y upgrade && yum -y install zsh git sudo which man curl make gcc tar  glibc-common
 
 EOF
     $DOCKER build -rm -t stevedore $BUILDDIR | tee $BUILDDIR/log 
@@ -288,6 +288,8 @@ EOF
 ##############################################################################
 ## -- Make sure it has current user permission
 RUN chown -R $CURRUID:$CURRUID /custom
+ENV LANG en_US.UTF-8
+ENV LC_ALL en_US.UTF-8 
 WORKDIR $HOME
 ENV HOME $HOME
 ENV STEVEDORE $1
