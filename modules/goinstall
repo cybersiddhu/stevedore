@@ -9,3 +9,6 @@ TMPGO=$(mktemp -d)
 cd $TMPGO && curl -s -O $GOURL
 tar xvzf $GOTARBALL -C $GODIR && cd $GODIR/go/src
 ./all.bash
+
+# Additional tool
+yum -y install mercurial
