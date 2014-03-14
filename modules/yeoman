@@ -1,2 +1,1 @@
-RUN rpm -Uvh http://mirror.chpc.utah.edu/pub/epel/6/i386/epel-release-6-8.noarch.rpm && \
-    yum install nodejs npm --enablerepo=epel
+RUN yum -y install nodejs npm --enablerepo=epel
