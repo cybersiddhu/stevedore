@@ -1,1 +1,2 @@
-RUN yum -y install nodejs npm --enablerepo=epel
+RUN yum -y install nodejs npm --enablerepo=epel && \
+    npm install -y yo generator-webapp
