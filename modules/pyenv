@@ -21,6 +21,6 @@ fi
 ## - install python and friends
 pyenv install 3.3.2
 pyenv global 3.3.2
-pip install virtualenv jedi
+pip install virtualenv jedi rackspace-novaclient
 
 
