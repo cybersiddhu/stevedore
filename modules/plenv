@@ -1,0 +1,24 @@
+#!/bin/zsh
+
+CUSTOMDIR=/custom
+PLENV_ROOT=${CUSTOMDIR}/plenv
+
+## - install plenv(+virtualenv)
+git clone git://github.com/tokuhirom/plenv.git $PLENV_ROOT
+git clone git://github.com/tokuhirom/Perl-Build.git $PLENV_ROOT/plugins/perl-build
+
+## - activate plenv
+if [ -d "${PLENV_ROOT}/bin" ] 
+then 
+    export PLENV_ROOT
+    export PATH="${PLENV_ROOT}/bin:$PATH"
+    eval "$(plenv init -)"
+    plenv rehash
+fi
+
+## - install python and friends
+plenv install 5.18.0
+plenv global 5.18.0
+plenv install-cpanm
+
+
