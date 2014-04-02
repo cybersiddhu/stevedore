@@ -23,4 +23,4 @@ plenv install-cpanm
 
 rpm -ivh http://yum.postgresql.org/9.2/redhat/rhel-6-x86_64/pgdg-centos92-9.2-6.noarch.rpm &&\
     yum -y install postgresql92 postgresql92-devel postgresql92-libs
-cpanm DBD::Pg DBD::SQLite App::Sqitch
+cpanm -v DBD::Pg 
