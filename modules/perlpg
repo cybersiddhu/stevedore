@@ -1,0 +1,3 @@
+RUN mkdir -p /custom/bin && mkdir -p /custom/runner
+ADD https://raw.github.com/cybersiddhu/stevedore/master/modules/plenvpg /custom/runner/perlinstall
+RUN chmod u+x /custom/runner/perlinstall && /custom/runner/perlinstall 
