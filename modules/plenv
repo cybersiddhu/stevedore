@@ -20,5 +20,6 @@ fi
 plenv install 5.18.0
 plenv global 5.18.0
 plenv install-cpanm
+cpanm local::lib
 
 
