@@ -178,6 +178,7 @@ _stevedore_env_build () {
     }
     cat $1/Dockerfile.pre $1/Dockerfile.post > $1/Dockerfile
     $DOCKER build -q -rm -t $1 $1 | tee $1/build.log 
+    #$DOCKER build  -rm -t $1 $1 | tee $1/build.log 
     if grep -q Successfully $1/build.log
     then
 	echo "Build successful."
@@ -279,7 +280,7 @@ EOF
     if [ $# -ge 2 ]; then
         for module in ${@[2,-1]};
         do
-            curl https://raw.github.com/cybersiddhu/stevedore/master/modules/${module}  >> $1/Dockerfile.post
+            curl https://raw.githubusercontent.com/cybersiddhu/stevedore/master/modules/${module}  >> $1/Dockerfile.post
         done
     fi
 
