@@ -187,11 +187,6 @@ _stevedore_env_build () {
 	exit 1
     fi
     $DOCKER images -q $1 >> $1/history
-    #[ -s $1/cid ] && {
-	#echo "Restarting existing container..."
-	#_stevedore_env_stop $1
-    #}
-    #_stevedore_env_start $1
 }
 
 _stevedore_env_check () {
@@ -203,10 +198,6 @@ _stevedore_env_check () {
 	echo "Environment does not exist."
 	exit 1
     }
-    #[ -s $1/cid ] || {
-	#echo "Invalid or corrupt environment: cid file is missing."
-	#exit 1
-    #}
     [ -f $1/Dockerfile ] || {
 	echo "Invalid or corrupt environment: Dockerfile is missing."
 	exit 1
@@ -219,8 +210,6 @@ _stevedore_env_check () {
 
 _stevedore_env_destroy () {
     _stevedore_env_check $1
-    #echo -n "Deleting container: "
-    #$DOCKER rm $(cat $1/cid)
     echo "Deleting tagged images..."
     $DOCKER rmi $1
     rm -rf $1
