@@ -18,9 +18,10 @@ if [ -d ${PYCONFIG} ]; then
     pyenv global ${PYFULL}
     LDFLAGS='-export-dynamic' ./configure --enable-python3interp --enable-multibyte \
         --with-features=huge --with-python3-config-dir=${PYCONFIG} --enable-gui=no \
-        --with-x=yes
+        --with-x=yes --enable-luainterp=yes  --with-lua-prefix=/usr
 else
-    ./configure --with-features=huge --enable-multibyte --enable-gui=no
+    ./configure --with-features=huge --enable-multibyte --enable-gui=no \
+                --enable-luainterp=yes  --with-lua-prefix=/usr
 fi
 
 make -j6
