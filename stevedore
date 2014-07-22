@@ -242,9 +242,6 @@ FROM stevedore
 RUN useradd -m -s /bin/zsh -u $CURRUID $USER && \
  echo "$USER ALL=(ALL) NOPASSWD: ALL" >/etc/sudoers.d/$USER && \
  chmod 0440 /etc/sudoers.d/$USER && cp -a $(which sudo) $(which sudo).real 
-ADD sudo /sudo.tmp
-RUN mv /sudo.tmp $(which sudo)
-
 
 EOF
 }
