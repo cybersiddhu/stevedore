@@ -254,16 +254,7 @@ _stevedore_env_new () {
 	exit 1
     }
     mkdir "$1"
-    cat >$1/sudo <<EOF
-#!/bin/sh
-[ "\$STEVEDORE" ] || {
-    echo '\$STEVEDORE environment variable not found. Aborting.'
-    exit 1
-}
-echo "\$@" >> \$HOME/.stevedore/\$STEVEDORE/sudohist
-exec sudo.real "\$@"
-EOF
-    chmod +x $1/sudo
+
     curl https://raw2.github.com/cybersiddhu/stevedore/master/modules/shell >> $1/Dockerfile.post
 
     if [ $# -ge 2 ]; then
