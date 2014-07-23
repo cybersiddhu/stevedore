@@ -65,7 +65,7 @@ _stevedore_cmd_init () {
     mkdir $BUILDDIR
     cat >> $BUILDDIR/Dockerfile <<EOF
 $DOCKERFILE
-RUN yum -y update && yum -y upgrade && yum -y install zsh git sudo which man curl make gcc tar  glibc-common bzip2
+RUN yum -y update && yum -y upgrade && yum -y install zsh git sudo which man curl make gcc tar glibc-common bzip2
 
 EOF
     $DOCKER build -rm -t stevedore $BUILDDIR | tee $BUILDDIR/log 
@@ -225,7 +225,7 @@ _stevedore_env_new () {
 
 ##############################################################################
 ## -- Make sure it has current user permission
-RUN chown -R $CURRUID:$CURRUID /custom
+RUN chown -R $CURRUID:$CURRUID /custom && localedef -c -i en_US -f en_US.UTF-8 UTF-8
 ENV LANG en_US.UTF-8
 ENV LC_ALL en_US.UTF-8 
 WORKDIR $HOME
