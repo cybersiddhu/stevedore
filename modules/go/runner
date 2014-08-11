@@ -1,2 +1,2 @@
-ADD https://raw2.github.com/cybersiddhu/stevedore/master/modules/goinstall /custom/runner/goinstall
+ADD https://raw2.github.com/cybersiddhu/stevedore/master/modules/go/install /custom/runner/goinstall
 RUN chmod u+x /custom/runner/goinstall && /custom/runner/goinstall

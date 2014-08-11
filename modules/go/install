@@ -2,7 +2,7 @@
 
 GOTARBALL=go1.3.src.tar.gz
 GOURL=http://golang.org/dl/${GOTARBALL}
-GODIR=/custom/golang
+GODIR=${CUSTOMDIR}/golang
 mkdir -p $GODIR
 
 TMPGO=$(mktemp -d)
