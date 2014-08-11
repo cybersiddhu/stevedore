@@ -1,0 +1,37 @@
+#!/bin/zsh
+
+#Install latest vim and include python support if present
+CUSTOMDIR=/custom
+VIMDIR=${CUSTOMDIR}/dotfiles/vim
+VIMVERSION=vim-7.4
+VIMURL=ftp://ftp.vim.org/pub/vim/unix/${VIMVERSION}.tar.bz2
+TMPVIM=$(mktemp -d)
+cd $TMPVIM && curl -s -O $VIMURL
+tar xvjf ${VIMVERSION}.tar.bz2 && cd vim74
+
+Check for python installation
+PYFULL=3.3.4
+PYMAJOR=3.3
+PYCONFIG=/custom/pyenv/versions/${PYFULL}/lib/python${PYMAJOR}/config-${PYMAJOR}
+
+if [ -d ${PYCONFIG} ]; then
+    pyenv global ${PYFULL}
+    LDFLAGS='-export-dynamic' ./configure --enable-python3interp --enable-multibyte \
+        --with-features=huge --with-python3-config-dir=${PYCONFIG} --enable-gui=no \
+        --with-x=yes --enable-luainterp=yes  --with-lua-prefix=/usr
+else
+    ./configure --with-features=huge --enable-multibyte --enable-gui=no \
+                --enable-luainterp=yes  --with-lua-prefix=/usr
+fi
+
+make -j6
+cp src/vim ${CUSTOMDIR}/bin/
+cp -R runtime $VIMDIR/
+rm -rf $TMPVIM
+
+# setup for powerfile fonts
+curl -L -o /usr/share/fonts/powerlinesymbols.otf https://github.com/Lokaltog/powerline/blob/develop/font/PowerlineSymbols.otf\?raw\=true
+curl -o /usr/share/fonts/Inconsolata-powerline.otf https://raw2.github.com/Lokaltog/powerline-fonts/master/Inconsolata/Inconsolata%20for%20Powerline.otf
+curl -o /usr/share/fontconfig/conf.avail/10-powerline-symbols.conf https://raw2.github.com/Lokaltog/powerline/develop/font/10-powerline-symbols.conf
+cd /etc/fonts/conf.d && ln -sf /usr/share/fontconfig/conf.avail/10-powerline-symbols.conf .
+fc-cache -vf /usr/share/fonts
