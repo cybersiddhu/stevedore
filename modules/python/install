@@ -19,8 +19,8 @@ then
 fi
 
 ## - install python and friends
-pyenv install 3.3.2
-pyenv global 3.3.2
+pyenv install 3.3.4 2.7.6
+pyenv global 3.3.4
 pip install virtualenv jedi 
 LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 pip install pytz rackspace-novaclient
 
