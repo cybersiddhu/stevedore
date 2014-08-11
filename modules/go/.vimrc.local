@@ -1,0 +1,60 @@
+" custom settings from vim-go pluin {
+     let g:syntastic_mode_map = { 'mode': 'active',
+   \ 'active_filetypes': [],
+       \ 'passive_filetypes': ['go'] }
+    let g:go_snippet_engine = "neosnippet"
+" }
+
+" custom golang mapping from vim-go plugin {
+" Show type info for the word under your cursor with <leader>i
+    au FileType go nmap <Leader>i <Plug>(go-info)
+" Open the relevant Godoc for the word under the cursor with <leader>gd
+    au FileType go nmap <Leader>gd <Plug>(go-doc)
+    au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
+" Run commands, such as go run with <leader>r for the current file or go build
+" and go test for the current package with <leader>b and <leader>t
+    au FileType go nmap <leader>r :GoRun %<CR>
+    au FileType go nmap <Leader>i <Plug>(go-info)
+    au FileType go nmap <leader>t <Plug>(go-test)
+" Replace gd (Goto Declaration) for the word under your cursor (replaces
+" current buffer)
+    au FileType go nmap gd <Plug>(go-def)
+" open the definition/declaration in a new vertical, horizontal or tab for the
+" word under your cursor
+    au FileType go nmap <Leader>ds <Plug>(go-def-split)
+    au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+    au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+" }
+
+" Keeping it for archive
+"" golang tagbar support {
+"let g:tagbar_type_go = {
+    "\ 'ctagstype': 'go',
+        "\ 'kinds' : [
+            "\'p:package',
+            "\'f:function',
+            "\'v:variables',
+            "\'t:types',
+            "\'c:constants',
+            "\'n:interfaes',
+            "\'i:imports:1',
+            "\'w:fields',
+            "\'e:embeded',
+            "\'m:methods',
+            "\'r:constructors',
+            "\'f:functions'
+       "\],
+       "\'sro' : '.',
+       "\ 'kind2scope' : {
+        "\ 't' : 'ctype',
+        "\ 'n' : 'ntype'
+        "\},
+        "\ 'scope2kind' : {
+        "\ 'ctype' : 't',
+        "\ 'ntype' : 'n'
+    "\ },
+    "\ 'ctagsbin'  : 'gotags',
+    "\ 'ctagsargs' : '-sort -silent'
+   "\}
+" }
+
