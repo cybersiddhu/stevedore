@@ -1,5 +1,5 @@
 RUN mkdir -p /custom/bin && mkdir -p /custom/runner
-ADD https://raw.github.com/cybersiddhu/stevedore/master/modules/rackenv /custom/runner/pyinstall
+ADD https://raw.github.com/cybersiddhu/stevedore/master/modules/rackspace/runner /custom/runner/pyinstall
 RUN chmod u+x /custom/runner/pyinstall && /custom/runner/pyinstall 
 
 
