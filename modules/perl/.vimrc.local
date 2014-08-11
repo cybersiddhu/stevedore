@@ -1,0 +1,15 @@
+" perl folding {
+    let perl_fold = 1
+    let perl_fold_blocks = 1
+" }
+
+" mapping perltidy {
+    if executable('perltidy')
+        au FileType perl imap <Leader>pt <Esc>:%!perltidy -q<CR>
+        au FileType perl nmap <Leader>pt :%!perltidy -q<CR>
+    endif
+" }
+
+" Perl syntastic checking {
+    let g:syntastic_enable_perl_checker = 1
+" }
