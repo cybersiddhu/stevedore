@@ -16,7 +16,7 @@ then
     plenv rehash
 fi
 
-## - install python and friends
+## - install perl and friends
 plenv install 5.18.0
 plenv global 5.18.0
 plenv install-cpanm
