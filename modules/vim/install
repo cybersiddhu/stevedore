@@ -10,19 +10,19 @@ cd $TMPVIM && curl -s -O $VIMURL
 tar xvjf ${VIMVERSION}.tar.bz2 && cd vim74
 
 #Check for python installation
-PYFULL=3.3.2
-PYMAJOR=3.3
-PYCONFIG=/custom/pyenv/versions/${PYFULL}/lib/python${PYMAJOR}/config-${PYMAJOR}
+#PYFULL=3.3.2
+#PYMAJOR=3.3
+#PYCONFIG=/custom/pyenv/versions/${PYFULL}/lib/python${PYMAJOR}/config-${PYMAJOR}
 
-if [ -d ${PYCONFIG} ]; then
-    pyenv global ${PYFULL}
-    LDFLAGS='-export-dynamic' ./configure --enable-python3interp --enable-multibyte \
-        --with-features=huge --with-python3-config-dir=${PYCONFIG} --enable-gui=no \
-        --with-x=yes --enable-luainterp=yes  --with-lua-prefix=/usr
-else
-    ./configure --with-features=huge --enable-multibyte --enable-gui=no \
+#if [ -d ${PYCONFIG} ]; then
+    #pyenv global ${PYFULL}
+    #LDFLAGS='-export-dynamic' ./configure --enable-python3interp --enable-multibyte \
+        #--with-features=huge --with-python3-config-dir=${PYCONFIG} --enable-gui=no \
+        #--with-x=yes --enable-luainterp=yes  --with-lua-prefix=/usr
+#else
+./configure --with-features=huge --enable-multibyte --enable-gui=no \
                 --enable-luainterp=yes  --with-lua-prefix=/usr
-fi
+#fi
 
 make -j6
 cp src/vim ${CUSTOMDIR}/bin/

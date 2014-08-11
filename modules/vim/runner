@@ -1,5 +1,5 @@
 RUN mkdir -p /custom/bin && mkdir -p /custom/dotfiles/vim && mkdir -p /custom/runner
-ADD https://raw2.github.com/cybersiddhu/stevedore/master/modules/viminstall /custom/runner/viminstall
+ADD https://raw2.github.com/cybersiddhu/stevedore/master/modules/vim/install /custom/runner/viminstall
 RUN chmod u+x /custom/runner/viminstall && yum -y install ctags ncurses ncurses-libs ncurses-devel fontconfig lua lua-devel
 RUN /custom/runner/viminstall
 
@@ -16,5 +16,5 @@ RUN curl http://beyondgrep.com/ack-2.10-single-file > /usr/local/bin/ack && chmo
  ln -sf /custom/dotfiles/vim/spf13/.vimrc.bundles.local /custom/dotfiles/vim/.vimrc.bundles.local
 
 ENV VIMDIR /custom/dotfiles/vim
-ADD https://raw2.github.com/cybersiddhu/stevedore/master/modules/vimbundle /custom/runner/vimbundle
+ADD https://raw2.github.com/cybersiddhu/stevedore/master/modules/vim/bundle /custom/runner/vimbundle
 RUN chmod u+x /custom/runner/vimbundle && /custom/runner/vimbundle
