@@ -27,35 +27,3 @@
     au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 " }
 
-" Keeping it for archive
-"" golang tagbar support {
-"let g:tagbar_type_go = {
-    "\ 'ctagstype': 'go',
-        "\ 'kinds' : [
-            "\'p:package',
-            "\'f:function',
-            "\'v:variables',
-            "\'t:types',
-            "\'c:constants',
-            "\'n:interfaes',
-            "\'i:imports:1',
-            "\'w:fields',
-            "\'e:embeded',
-            "\'m:methods',
-            "\'r:constructors',
-            "\'f:functions'
-       "\],
-       "\'sro' : '.',
-       "\ 'kind2scope' : {
-        "\ 't' : 'ctype',
-        "\ 'n' : 'ntype'
-        "\},
-        "\ 'scope2kind' : {
-        "\ 'ctype' : 't',
-        "\ 'ntype' : 'n'
-    "\ },
-    "\ 'ctagsbin'  : 'gotags',
-    "\ 'ctagsargs' : '-sort -silent'
-   "\}
-" }
-
