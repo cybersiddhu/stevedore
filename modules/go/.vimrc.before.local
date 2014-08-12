@@ -16,6 +16,6 @@
 " }
 "
 " Bundle group for golang {
-    let g:spf13_bundle_groups=['general','neocomplcache','programming','go']
+    let g:spf13_bundle_groups=['general','neocomplete','programming','go']
     let g:sidds_bundle_groups=['misc']
 " }
