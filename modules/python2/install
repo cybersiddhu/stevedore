@@ -4,9 +4,9 @@ CUSTOMDIR=/custom
 PYENV_ROOT=${CUSTOMDIR}/pyenv
 
 ## - install pyenv(+virtualenv)
-yum -y install zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel
+yum -y install zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel patch
 git clone git://github.com/yyuu/pyenv.git $PYENV_ROOT
-ln -s /proc/self/fd /dev/fd
+# ln -s /proc/self/fd /dev/fd
 git clone git://github.com/yyuu/pyenv-virtualenv.git ${PYENV_ROOT}/plugins/pyenv-virtualenv
 
 ## - activate pyenv
