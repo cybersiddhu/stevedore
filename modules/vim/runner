@@ -3,6 +3,7 @@ ADD https://raw.githubusercontent.com/cybersiddhu/stevedore/master/modules/vim/i
 ADD https://raw.githubusercontent.com/cybersiddhu/stevedore/master/modules/vim/bundle /custom/runner/vimbundle
 ENV VIMDIR /custom/dotfiles/vim
 RUN chmod u+x /custom/runner/viminstall && \
+    chmod u+x /custom/runner/vimbundle && \
     yum -y install ctags ncurses ncurses-libs ncurses-devel fontconfig lua lua-devel && \
     /custom/runner/viminstall && \
  curl http://beyondgrep.com/ack-2.10-single-file > /usr/local/bin/ack && chmod 0755 /usr/local/bin/ack && \
@@ -14,4 +15,4 @@ RUN chmod u+x /custom/runner/viminstall && \
  ln -sf /custom/dotfiles/vim/spf13/.vimrc.bundles /custom/dotfiles/vim/.vimrc.bundles && \
  ln -sf /custom/dotfiles/vim/spf13/.vimrc.bundles.fork /custom/dotfiles/vim/.vimrc.bundles.fork && \
  ln -sf /custom/dotfiles/vim/spf13/.vimrc.fork /custom/dotfiles/vim/.vimrc.fork && \
- chmod u+x /custom/runner/vimbundle && /custom/runner/vimbundle
+ /custom/runner/vimbundle
