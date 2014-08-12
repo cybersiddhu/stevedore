@@ -22,18 +22,3 @@ fi
 pyenv install 2.7.6
 pyenv global 2.7.6
 pip install virtualenv jedi 
-LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 pip install pytz rackspace-novaclient
-
-
-# setup vim configurations
-PYDIR=${CUSTOMDIR}/stevedore/modules/python2
-VIMDIR=${CUSTOMDIR}/dotfiles/vim
-
-if [-e ${VIMDIR} ]; then
-    if [ -e "${PYDIR}/.vimrc.before.local" ]; then
-        cp ${PYDIR}/.vimrc.before.local ${VIMDIR}/
-    fi
-    if [ -e "${PYDIR}/.vimrc.local" ]; then
-        cp ${PYDIR}/.vimrc.local ${VIMDIR}/
-    fi
-fi
