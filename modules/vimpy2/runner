@@ -3,7 +3,7 @@ RUN mkdir -p /custom/bin && mkdir -p /custom/dotfiles/vim && \
     chmod u+x /custom/stevedore/modules/python2/install && \
     chmod u+x /custom/stevedore/modules/vimpy2/install && \
     chmod u+x /custom/stevedore/modules/vimpy2/bundle && \
-    /custom/stevedore/modules/python2/install
+    /custom/stevedore/modules/python2/install && \
     yum -y install ctags ncurses ncurses-libs ncurses-devel fontconfig lua lua-devel && \
     /custom/stevedore/modules/vimpy2/install && \
     curl http://beyondgrep.com/ack-2.10-single-file > /usr/local/bin/ack && chmod 0755 /usr/local/bin/ack && \
