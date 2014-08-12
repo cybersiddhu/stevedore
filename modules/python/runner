@@ -1,5 +1,5 @@
-RUN mkdir -p /custom/bin && mkdir -p /custom/runner
-ADD https://raw.github.com/cybersiddhu/stevedore/master/modules/python/runner /custom/runner/pyinstall
-RUN chmod u+x /custom/runner/pyinstall && /custom/runner/pyinstall 
+RUN git clone https://github.com/cybersiddhu/stevedore.git /custom/stevedore && \
+    chmod u+x /custom/stevedore/modules/python3/install && \
+    /custom/stevedore/modules/python3/install
 
 
