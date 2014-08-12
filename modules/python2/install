@@ -1,0 +1,39 @@
+#!/bin/zsh
+
+CUSTOMDIR=/custom
+PYENV_ROOT=${CUSTOMDIR}/pyenv
+
+## - install pyenv(+virtualenv)
+yum -y install zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel
+git clone git://github.com/yyuu/pyenv.git $PYENV_ROOT
+ln -s /proc/self/fd /dev/fd
+git clone git://github.com/yyuu/pyenv-virtualenv.git ${PYENV_ROOT}/plugins/pyenv-virtualenv
+
+## - activate pyenv
+if [ -d "${PYENV_ROOT}/bin" ] 
+then 
+    export PYENV_ROOT
+    export PATH="${PYENV_ROOT}/bin:$PATH"
+    eval "$(pyenv init -)"
+    pyenv rehash
+fi
+
+## - install python and friends
+pyenv install 2.7.6
+pyenv global 2.7.6
+pip install virtualenv jedi 
+LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 pip install pytz rackspace-novaclient
+
+
+# setup vim configurations
+PYDIR=${CUSTOMDIR}/stevedore/modules/python2
+VIMDIR=${CUSTOMDIR}/dotfiles/vim
+
+if [-e ${VIMDIR} ]; then
+    if [ -e "${PYDIR}/.vimrc.before.local" ]; then
+        cp ${PYDIR}/.vimrc.before.local ${VIMDIR}/
+    fi
+    if [ -e "${PYDIR}/.vimrc.local" ]; then
+        cp ${PYDIR}/.vimrc.local ${VIMDIR}/
+    fi
+fi
