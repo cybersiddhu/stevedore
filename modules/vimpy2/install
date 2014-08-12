@@ -12,7 +12,7 @@ tar xvjf ${VIMVERSION}.tar.bz2 && cd vim74
 Check for python installation
 PYFULL=2.7.6
 PYMAJOR=2.7
-PYCONFIG=/custom/pyenv/versions/${PYFULL}/lib/python${PYMAJOR}/config-${PYMAJOR}
+PYCONFIG=/custom/pyenv/versions/${PYFULL}/lib/python${PYMAJOR}/config
 
 if [ -d ${PYCONFIG} ]; then
     pyenv global ${PYFULL}
