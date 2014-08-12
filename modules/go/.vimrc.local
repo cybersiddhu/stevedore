@@ -1,4 +1,5 @@
 " custom settings from vim-go pluin {
+    let g:go_disable_autoinstall = 1
      let g:syntastic_mode_map = { 'mode': 'active',
    \ 'active_filetypes': [],
        \ 'passive_filetypes': ['go'] }
