@@ -1,15 +1,11 @@
 ## -- create custom folder to keep dotfile and dev tools customizing softwares
-RUN mkdir -p /custom/dotfiles/shell 
-
-## -- zshrc + antigen 
-RUN curl -o /custom/dotfiles/shell/.zshrc https://raw.githubusercontent.com/cybersiddhu/dotfiles/master/zsh/zshrc.docker && \
-git clone https://github.com/zsh-users/antigen.git /custom/antigen && \
-mkdir -p /custom/dotfiles/.antigen
-
-## -- tmux
-RUN rpm -ivh http://mirror.seas.harvard.edu/epel/beta/7/x86_64/epel-release-7-0.2.noarch.rpm && \
-yum -y install tmux && mkdir -p /custom/dotfiles/tmux  && \
-curl -o /custom/dotfiles/tmux/.tmux.conf https://raw.githubusercontent.com/cybersiddhu/dotfiles/master/tmux/tmux.conf
+RUN mkdir -p /custom/dotfiles/shell && \
+     curl -o /custom/dotfiles/shell/.zshrc https://raw.githubusercontent.com/cybersiddhu/dotfiles/master/zsh/zshrc.docker && \
+    git clone https://github.com/zsh-users/antigen.git /custom/antigen && \
+    mkdir -p /custom/dotfiles/.antigen && \
+     rpm -ivh http://mirror.seas.harvard.edu/epel/beta/7/x86_64/epel-release-7-0.2.noarch.rpm && \
+    yum -y install tmux && mkdir -p /custom/dotfiles/tmux  && \
+    curl -o /custom/dotfiles/tmux/.tmux.conf https://raw.githubusercontent.com/cybersiddhu/dotfiles/master/tmux/tmux.conf
 
 ENV CUSTOMDIR /custom
 ENV ZDOTDIR /custom/dotfiles/shell

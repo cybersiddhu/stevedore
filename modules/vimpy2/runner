@@ -1,11 +1,11 @@
 RUN mkdir -p /custom/bin && mkdir -p /custom/dotfiles/vim && mkdir -p /custom/runner
-ADD https://raw2.github.com/cybersiddhu/stevedore/master/modules/vim/install /custom/runner/viminstall
-RUN chmod u+x /custom/runner/viminstall && yum -y install ctags ncurses ncurses-libs ncurses-devel fontconfig lua lua-devel
-RUN /custom/runner/viminstall
-
-
-## -spf13 vim plugin(+vundle)
-RUN curl http://beyondgrep.com/ack-2.10-single-file > /usr/local/bin/ack && chmod 0755 /usr/local/bin/ack && \
+ADD https://raw.githubusercontent.com/cybersiddhu/stevedore/master/modules/vim/install /custom/runner/viminstall
+ADD https://raw.githubusercontent.com/cybersiddhu/stevedore/master/modules/vim/bundle /custom/runner/vimbundle
+ENV VIMDIR /custom/dotfiles/vim
+RUN chmod u+x /custom/runner/viminstall && \
+    yum -y install ctags ncurses ncurses-libs ncurses-devel fontconfig lua lua-devel && \
+    /custom/runner/viminstall && \
+ curl http://beyondgrep.com/ack-2.10-single-file > /usr/local/bin/ack && chmod 0755 /usr/local/bin/ack && \
  git clone https://github.com/gmarik/vundle /custom/dotfiles/vim/bundle/vundle && \
  git clone https://github.com/cybersiddhu/spf13-vim.git -b feature/modular /custom/dotfiles/vim/spf13 && \
  ln -sf /custom/dotfiles/vim/spf13/.vimrc.before /custom/dotfiles/vim/.vimrc.before && \
@@ -13,8 +13,5 @@ RUN curl http://beyondgrep.com/ack-2.10-single-file > /usr/local/bin/ack && chmo
  ln -sf /custom/dotfiles/vim/spf13/.vimrc /custom/dotfiles/vim/.vimrc && \
  ln -sf /custom/dotfiles/vim/spf13/.vimrc.bundles /custom/dotfiles/vim/.vimrc.bundles && \
  ln -sf /custom/dotfiles/vim/spf13/.vimrc.bundles.fork /custom/dotfiles/vim/.vimrc.bundles.fork && \
- ln -sf /custom/dotfiles/vim/spf13/.vimrc.fork /custom/dotfiles/vim/.vimrc.fork
-
-ENV VIMDIR /custom/dotfiles/vim
-ADD https://raw2.github.com/cybersiddhu/stevedore/master/modules/vim/bundle /custom/runner/vimbundle
-RUN chmod u+x /custom/runner/vimbundle && /custom/runner/vimbundle
+ ln -sf /custom/dotfiles/vim/spf13/.vimrc.fork /custom/dotfiles/vim/.vimrc.fork && \
+ chmod u+x /custom/runner/vimbundle && /custom/runner/vimbundle
