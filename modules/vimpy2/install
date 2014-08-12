@@ -35,3 +35,16 @@ curl -o /usr/share/fonts/Inconsolata-powerline.otf https://raw2.github.com/Lokal
 curl -o /usr/share/fontconfig/conf.avail/10-powerline-symbols.conf https://raw2.github.com/Lokaltog/powerline/develop/font/10-powerline-symbols.conf
 cd /etc/fonts/conf.d && ln -sf /usr/share/fontconfig/conf.avail/10-powerline-symbols.conf .
 fc-cache -vf /usr/share/fonts
+
+
+# setup vim configurations for python2
+PYDIR=${CUSTOMDIR}/stevedore/modules/python2
+
+if [-e ${VIMDIR} ]; then
+    if [ -e "${PYDIR}/.vimrc.before.local" ]; then
+        cp ${PYDIR}/.vimrc.before.local ${VIMDIR}/
+    fi
+    if [ -e "${PYDIR}/.vimrc.local" ]; then
+        cp ${PYDIR}/.vimrc.local ${VIMDIR}/
+    fi
+fi
