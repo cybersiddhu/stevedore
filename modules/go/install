@@ -17,7 +17,7 @@ yum -y install mercurial
 GODIR=${CUSTOMDIR}/stevedore/modules/go
 VIMDIR=${CUSTOMDIR}/dotfiles/vim
 
-if [-e ${VIMDIR} ]; then
+if [ -e ${VIMDIR} ]; then
     if [ -e "${GODIR}/.vimrc.before.local" ]; then
         cp ${GODIR}/.vimrc.before.local ${VIMDIR}/
     fi
