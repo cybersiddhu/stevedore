@@ -12,3 +12,16 @@ tar xvzf $GOTARBALL -C $GODIR && cd $GODIR/go/src
 
 # Additional tool
 yum -y install mercurial
+
+# setup vim configurations
+GODIR=${CUSTOMDIR}/stevedore/modules/go
+VIMDIR=${CUSTOMDIR}/dotfiles/vim
+
+if [-e ${VIMDIR} ]; then
+    if [ -e "${GODIR}/.vimrc.before.local" ]; then
+        cp ${GODIR}/.vimrc.before.local ${VIMDIR}/
+    fi
+    if [ -e "${GODIR}/.vimrc.local" ]; then
+        cp ${GODIR}/.vimrc.local ${VIMDIR}/
+    fi
+fi
