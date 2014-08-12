@@ -212,12 +212,12 @@ _stevedore_env_new () {
     }
     mkdir "$1"
 
-    curl https://raw2.github.com/cybersiddhu/stevedore/master/modules/shell >> $1/Dockerfile.post
+    curl https://raw.githubusercontent.com/cybersiddhu/stevedore/master/modules/shell/runner >> $1/Dockerfile.post
 
     if [ $# -ge 2 ]; then
         for module in ${@[2,-1]};
         do
-            curl https://raw.githubusercontent.com/cybersiddhu/stevedore/master/modules/${module}  >> $1/Dockerfile.post
+            curl https://raw.githubusercontent.com/cybersiddhu/stevedore/master/modules/${module}/runner  >> $1/Dockerfile.post
         done
     fi
 
