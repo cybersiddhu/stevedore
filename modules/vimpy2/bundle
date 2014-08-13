@@ -1,6 +1,4 @@
 #!/bin/zsh
-/custom/bin/vim -e -s -u /custom/dotfiles/vim/.vimrc +PluginInstall +qall
-
 CUSTOMDIR=/custom
 VIMDIR=${CUSTOMDIR}/dotfiles/vim
 # setup vim configurations for python2
@@ -15,4 +13,5 @@ if [ -e ${VIMDIR} ]; then
     fi
 fi
 
+/custom/bin/vim -e -s -u /custom/dotfiles/vim/.vimrc +PluginInstall +qall
 exit 0
