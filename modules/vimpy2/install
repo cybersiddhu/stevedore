@@ -17,7 +17,8 @@ PYCONFIG=/custom/pyenv/versions/${PYFULL}/lib/python${PYMAJOR}/config
 if [ -d ${PYCONFIG} ]; then
     pyenv global ${PYFULL}
     export PATH=${CUSTOMDIR}/pyenv/bin:${CUSTOMDIR}/pyenv/shims:${PATH}
-    LDFLAGS='-export-dynamic' ./configure --enable-pythoninterp --enable-multibyte \
+    #LDFLAGS='-export-dynamic' ./configure --enable-pythoninterp --enable-multibyte \
+    ./configure --enable-pythoninterp --enable-multibyte \
         --with-features=huge --with-python-config-dir=${PYCONFIG} --enable-gui=no \
         --with-x=yes --enable-luainterp=yes  --with-lua-prefix=/usr
 else

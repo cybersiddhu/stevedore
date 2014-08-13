@@ -19,7 +19,7 @@ then
 fi
 
 ## - install python and friends
-pyenv install 2.7.6
+env PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv install 2.7.6
 pyenv global 2.7.6
 easy_install pip
 pip install virtualenv jedi 
