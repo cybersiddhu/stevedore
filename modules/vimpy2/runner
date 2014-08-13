@@ -1,3 +1,4 @@
+ENV VIMDIR /custom/dotfiles/vim
 RUN mkdir -p /custom/bin && mkdir -p /custom/dotfiles/vim && \
     git clone https://github.com/cybersiddhu/stevedore.git /custom/stevedore && \
     chmod u+x /custom/stevedore/modules/python2/install && \
@@ -16,4 +17,3 @@ RUN mkdir -p /custom/bin && mkdir -p /custom/dotfiles/vim && \
     ln -sf /custom/dotfiles/vim/spf13/.vimrc.bundles.fork /custom/dotfiles/vim/.vimrc.bundles.fork && \
     ln -sf /custom/dotfiles/vim/spf13/.vimrc.fork /custom/dotfiles/vim/.vimrc.fork
 RUN /custom/stevedore/modules/vimpy2/bundle
-ENV VIMDIR /custom/dotfiles/vim

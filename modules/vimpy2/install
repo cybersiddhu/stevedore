@@ -39,14 +39,3 @@ cd /etc/fonts/conf.d && ln -sf /usr/share/fontconfig/conf.avail/10-powerline-sym
 fc-cache -vf /usr/share/fonts
 
 
-# setup vim configurations for python2
-PYDIR=${CUSTOMDIR}/stevedore/modules/python2
-
-if [ -e ${VIMDIR} ]; then
-    if [ -e "${PYDIR}/.vimrc.before.local" ]; then
-        cp ${PYDIR}/.vimrc.before.local ${VIMDIR}/
-    fi
-    if [ -e "${PYDIR}/.vimrc.local" ]; then
-        cp ${PYDIR}/.vimrc.local ${VIMDIR}/
-    fi
-fi

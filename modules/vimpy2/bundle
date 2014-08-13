@@ -1,4 +1,18 @@
 #!/bin/zsh
-#/custom/bin/vim -e -s -u /custom/dotfiles/vim/.vimrc +PluginInstall +qall
-/custom/bin/vim -e -u /custom/dotfiles/vim/.vimrc +PluginInstall +qall
+/custom/bin/vim -e -s -u /custom/dotfiles/vim/.vimrc +PluginInstall +qall
+
+CUSTOMDIR=/custom
+VIMDIR=${CUSTOMDIR}/dotfiles/vim
+# setup vim configurations for python2
+PYDIR=${CUSTOMDIR}/stevedore/modules/python2
+
+if [ -e ${VIMDIR} ]; then
+    if [ -e "${PYDIR}/.vimrc.before.local" ]; then
+        cp ${PYDIR}/.vimrc.before.local ${VIMDIR}/
+    fi
+    if [ -e "${PYDIR}/.vimrc.local" ]; then
+        cp ${PYDIR}/.vimrc.local ${VIMDIR}/
+    fi
+fi
+
 exit 0
