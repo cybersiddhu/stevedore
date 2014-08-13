@@ -24,4 +24,7 @@ if [ -e ${VIMDIR} ]; then
     if [ -e "${GODIR}/.vimrc.local" ]; then
         cp ${GODIR}/.vimrc.local ${VIMDIR}/
     fi
+    if [ -e "${GODIR}/.vimrc.bundles.local" ]; then
+        cp ${GODIR}/.vimrc.local ${VIMDIR}/
+    fi
 fi

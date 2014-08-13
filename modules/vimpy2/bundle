@@ -11,6 +11,9 @@ if [ -e ${VIMDIR} ]; then
     if [ -e "${PYDIR}/.vimrc.local" ]; then
         cp ${PYDIR}/.vimrc.local ${VIMDIR}/
     fi
+    if [ -e "${PYDIR}/.vimrc.bundles.local" ]; then
+        cp ${PYDIR}/.vimrc.local ${VIMDIR}/
+    fi
 fi
 
 /custom/bin/vim -e -s -u /custom/dotfiles/vim/.vimrc +PluginInstall +qall
