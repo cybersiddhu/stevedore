@@ -1,4 +1,3 @@
 #!/bin/zsh
 #/custom/bin/vim -e -s -u /custom/dotfiles/vim/.vimrc +PluginInstall +qall
 /custom/bin/vim -e -u /custom/dotfiles/vim/.vimrc +PluginInstall +qall
-exit 0

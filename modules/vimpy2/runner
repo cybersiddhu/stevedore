@@ -14,6 +14,6 @@ RUN mkdir -p /custom/bin && mkdir -p /custom/dotfiles/vim && \
     ln -sf /custom/dotfiles/vim/spf13/.vimrc /custom/dotfiles/vim/.vimrc && \
     ln -sf /custom/dotfiles/vim/spf13/.vimrc.bundles /custom/dotfiles/vim/.vimrc.bundles && \
     ln -sf /custom/dotfiles/vim/spf13/.vimrc.bundles.fork /custom/dotfiles/vim/.vimrc.bundles.fork && \
-    ln -sf /custom/dotfiles/vim/spf13/.vimrc.fork /custom/dotfiles/vim/.vimrc.fork && \
-    /custom/stevedore/modules/vimpy2/bundle
+    ln -sf /custom/dotfiles/vim/spf13/.vimrc.fork /custom/dotfiles/vim/.vimrc.fork
+RUN /custom/stevedore/modules/vimpy2/bundle
 ENV VIMDIR /custom/dotfiles/vim
