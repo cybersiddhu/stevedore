@@ -1,0 +1,14 @@
+#!/bin/zsh
+CUSTOMDIR=/custom
+VIMBUNDLE=${CUSTOMDIR}/dotfiles/vim/bundle
+yum -y install xorg-x11-server-Xvfb java-1.7.0-openjdk ant wget tree
+if [ -e ${CUSTOMDIR} ]; then
+    TMPJAVA=$(mktemp -d)
+    ECTARBALL=eclipse-standard-luna-R-linux-gtk-x86_64.tar.gz
+    cd $TMPJAVA
+    wget http://ftp.osuosl.org/pub/eclipse/technology/epp/downloads/release/luna/R/${ECTARBALL}
+    tar xvzf $ECTARBALL -C $CUSTOMDIR
+    git clone git://github.com/ervandew/eclim.git
+    cd ${TMPJAVA}/eclim
+    ant -Declipse.home=${CUSTOMDIR}/eclipse -Dvim.files=${VIMBUNDLE}
+fi
