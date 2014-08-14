@@ -28,9 +28,9 @@ install_youcomplete_me () {
     PYENV_ROOT=${CUSTOMDIR}/pyenv
     YCMTEMP=$(mktemp -d)
     cd $YCMTEMP
-    cmake -G "Unix Makefiles" -DPYTHON_LIBRARY=$PYENV_ROOT/versions/2.7.6/lib/libpython2.7.so && \ 
-        -DPYTHON_INCLUDE_DIR=$PYENV_ROOT/versions/2.7.6/include/python2.7 . && \ 
-        $VIMDIR/bundle/YouCompleteMe/third_party/ycmd/cpp
+    cmake -G "Unix Makefiles" -DPYTHON_LIBRARY=/custom/pyenv/versions/2.7.6/lib/libpython2.7.so && \ 
+        -DPYTHON_INCLUDE_DIR=/custom/pyenv/versions/2.7.6/include/python2.7 . && \ 
+        ${VIMDIR}/bundle/YouCompleteMe/third_party/ycmd/cpp
     make -j8 ycm_support_libs
 }
 
