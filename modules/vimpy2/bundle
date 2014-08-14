@@ -21,6 +21,7 @@ copy_python_vim_config () {
 
 install_bundles () {
     ${CUSTOMDIR}/bin/vim -e -s -u ${VIMDIR}/.vimrc +PluginInstall +qall
+    exit 0
 }
 
 install_youcomplete_me () {
