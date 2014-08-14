@@ -1,0 +1,15 @@
+ENV VIMDIR /custom/dotfiles/vim
+RUN mkdir -p /custom/bin && mkdir -p /custom/dotfiles/vim && \
+    git clone https://github.com/cybersiddhu/stevedore.git /custom/stevedore && \
+    chmod u+x /custom/stevedore/modules/vimpy/install && \
+    yum -y install ctags ncurses ncurses-libs ncurses-devel fontconfig lua lua-devel python-devel && \
+    /custom/stevedore/modules/vimpy/install && \
+    curl http://beyondgrep.com/ack-2.10-single-file > /usr/local/bin/ack && chmod 0755 /usr/local/bin/ack && \
+    git clone https://github.com/gmarik/Vundle.vim.git /custom/dotfiles/vim/bundle/Vundle.vim && \
+    git clone https://github.com/cybersiddhu/spf13-vim.git -b feature/modular /custom/dotfiles/vim/spf13 && \
+    ln -sf /custom/dotfiles/vim/spf13/.vimrc.before /custom/dotfiles/vim/.vimrc.before && \
+    ln -sf /custom/dotfiles/vim/spf13/.vimrc.before.fork /custom/dotfiles/vim/.vimrc.before.fork && \
+    ln -sf /custom/dotfiles/vim/spf13/.vimrc /custom/dotfiles/vim/.vimrc && \
+    ln -sf /custom/dotfiles/vim/spf13/.vimrc.bundles /custom/dotfiles/vim/.vimrc.bundles && \
+    ln -sf /custom/dotfiles/vim/spf13/.vimrc.bundles.fork /custom/dotfiles/vim/.vimrc.bundles.fork && \
+    ln -sf /custom/dotfiles/vim/spf13/.vimrc.fork /custom/dotfiles/vim/.vimrc.fork
