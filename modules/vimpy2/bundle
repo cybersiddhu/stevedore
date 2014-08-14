@@ -4,17 +4,39 @@ VIMDIR=${CUSTOMDIR}/dotfiles/vim
 # setup vim configurations for python2
 PYDIR=${CUSTOMDIR}/stevedore/modules/python2
 
-if [ -e ${VIMDIR} ]; then
-    if [ -e "${PYDIR}/.vimrc.before.local" ]; then
-        cp ${PYDIR}/.vimrc.before.local ${VIMDIR}/
-    fi
-    if [ -e "${PYDIR}/.vimrc.local" ]; then
-        cp ${PYDIR}/.vimrc.local ${VIMDIR}/
-    fi
-    if [ -e "${PYDIR}/.vimrc.bundles.local" ]; then
-        cp ${PYDIR}/.vimrc.local ${VIMDIR}/
-    fi
-fi
+copy_python_vim_config () {
 
-/custom/bin/vim -e -s -u /custom/dotfiles/vim/.vimrc +PluginInstall +qall
-exit 0
+    if [ -e ${VIMDIR} ]; then
+        if [ -e "${PYDIR}/.vimrc.before.local" ]; then
+            cp ${PYDIR}/.vimrc.before.local ${VIMDIR}/
+        fi
+        if [ -e "${PYDIR}/.vimrc.local" ]; then
+            cp ${PYDIR}/.vimrc.local ${VIMDIR}/
+        fi
+        if [ -e "${PYDIR}/.vimrc.bundles.local" ]; then
+            cp ${PYDIR}/.vimrc.local ${VIMDIR}/
+        fi
+    fi
+}
+
+install_bundles () {
+    ${CUSTOMDIR}/bin/vim -e -s -u ${VIMDIR}/.vimrc +PluginInstall +qall
+}
+
+install_youcomplete_me () {
+    PYENV_ROOT=${CUSTOMDIR}/pyenv
+    YCMTEMP=$(mktemp -d)
+    cd $YCMTEMP
+    cmake -G "Unix Makefiles" -DPYTHON_LIBRARY=$PYENV_ROOT/versions/2.7.6/lib/libpython2.7.so && \ 
+        -DPYTHON_INCLUDE_DIR=$PYENV_ROOT/versions/2.7.6/include/python2.7 . && \ 
+        $VIMDIR/bundle/YouCompleteMe/third_party/ycmd/cpp
+    make -j8 ycm_support_libs
+}
+
+main () {
+    copy_python_vim_config
+    install_bundles
+    install_youcomplete_me
+}
+
+main
