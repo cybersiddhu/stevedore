@@ -37,7 +37,7 @@ install_youcomplete_me () {
 main () {
     copy_python_vim_config
     install_bundles
-    #install_youcomplete_me
+    install_youcomplete_me
 }
 
 main
