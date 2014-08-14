@@ -14,7 +14,7 @@ copy_python_vim_config () {
             cp ${PYDIR}/.vimrc.local ${VIMDIR}/
         fi
         if [ -e "${PYDIR}/.vimrc.bundles.local" ]; then
-            cp ${PYDIR}/.vimrc.local ${VIMDIR}/
+            cp ${PYDIR}/.vimrc.bundles.local ${VIMDIR}/
         fi
     fi
 }
@@ -36,7 +36,7 @@ install_youcomplete_me () {
 main () {
     copy_python_vim_config
     install_bundles
-    install_youcomplete_me
+    #install_youcomplete_me
 }
 
 main
