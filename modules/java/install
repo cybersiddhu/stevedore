@@ -4,7 +4,7 @@ VIMDIR=${CUSTOMDIR}/dotfiles/vim
 VIMBUNDLE=${VIMDIR}/bundle
 
 install_eclim () {
-    yum -y install xorg-x11-server-Xvfb java-1.7.0-openjdk ant wget tree
+    yum -y install xorg-x11-server-Xvfb java-1.7.0-openjdk ant wget tree cmake gcc-c++
     if [ -e ${CUSTOMDIR} ]; then
         TMPJAVA=$(mktemp -d)
         ECTARBALL=eclipse-standard-luna-R-linux-gtk-x86_64.tar.gz
