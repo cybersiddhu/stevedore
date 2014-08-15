@@ -17,7 +17,7 @@ install_eclim () {
     fi
 }
 
-install_vim_config () {
+install_java_vim_config () {
     JAVADIR=${CUSTOMDIR}/stevedore/modules/java
     if [ -e ${VIMDIR} ]; then
         if [ -e "${JAVADIR}/.vimrc.before.local" ]; then
@@ -27,7 +27,7 @@ install_vim_config () {
             cp ${JAVADIR}/.vimrc.local ${VIMDIR}/
         fi
         if [ -e "${JAVADIR}/.vimrc.bundles.local" ]; then
-            cp ${JAVADIR}/.vimrc.local ${VIMDIR}/
+            cp ${JAVADIR}/.vimrc.bundles.local ${VIMDIR}/
         fi
 fi
 
@@ -37,10 +37,20 @@ install_bundle () {
     ${CUSTOMDIR}/bin/vim -e -s -u ${VIMDIR}/.vimrc +PluginInstall +qall
 }
 
+install_youcomplete_me () {
+    if [ -e ${VIMBUNDLE}/YouCompleteMe ]; then
+        cd ${VIMBUNDLE}/YouCompleteMe
+        ./install.sh
+    fi
+
+}
+
 main () {
+    install_java_vim_config
     install_bundle
     install_vim_config 
     install_eclim
+    install_youcomplete_me
 }
 
 main
