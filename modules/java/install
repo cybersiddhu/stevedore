@@ -13,7 +13,7 @@ install_eclim () {
         tar xvzf $ECTARBALL -C $CUSTOMDIR
         git clone git://github.com/ervandew/eclim.git
         cd ${TMPJAVA}/eclim
-        ant -Declipse.home=${CUSTOMDIR}/eclipse -Dvim.files=${VIMBUNDLE}
+        ant -Declipse.home=${CUSTOMDIR}/eclipse -Dvim.files=${VIMBUNDLE}/eclim
     fi
 }
 
