@@ -34,7 +34,9 @@ fi
 }
 
 install_bundle () {
+    echo installing bundle
     ${CUSTOMDIR}/bin/vim -e -s -u ${VIMDIR}/.vimrc +PluginInstall +qall
+    echo Done installing bundle
 }
 
 install_youcomplete_me () {
@@ -48,7 +50,6 @@ install_youcomplete_me () {
 main () {
     install_java_vim_config
     install_bundle
-    install_vim_config 
     install_eclim
     install_youcomplete_me
 }
