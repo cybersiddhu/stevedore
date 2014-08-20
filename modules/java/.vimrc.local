@@ -1,0 +1,4 @@
+" load eclim plugin {
+    let $ECBUNDLE=$MYBUNDLE.'/eclim'
+    set rtp+=$ECBUNDLE
+" }
