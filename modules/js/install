@@ -1,0 +1,37 @@
+#!/bin/zsh
+CUSTOMDIR=/custom
+VIMDIR=${CUSTOMDIR}/dotfiles/vim
+VIMBUNDLE=${VIMDIR}/bundle
+
+install_js_modules () {
+    yum -y install nodejs npm --enablerepo=epel
+    npm install -g yo gulp bower generator-angular generator-gulp-angular
+}
+
+install_js_vim_config () {
+    JSDIR=${CUSTOMDIR}/stevedore/modules/js
+    if [ -e ${VIMDIR} ]; then
+        if [ -e "${JSDIR}/.vimrc.before.local" ]; then
+            cp ${JSDIR}/.vimrc.before.local ${VIMDIR}/
+        fi
+        if [ -e "${JSDIR}/.vimrc.local" ]; then
+            cp ${JSDIR}/.vimrc.local ${VIMDIR}/
+        fi
+        if [ -e "${JSDIR}/.vimrc.bundles.local" ]; then
+            cp ${JSDIR}/.vimrc.bundles.local ${VIMDIR}/
+        fi
+fi
+
+}
+
+install_bundle () {
+    echo installing bundle
+    ${CUSTOMDIR}/bin/vim -e -s -u ${VIMDIR}/.vimrc +PluginInstall +qall
+    echo Done installing bundle
+}
+
+main () {
+    install_js_modules
+    install_js_vim_config
+    install_bundle
+}
