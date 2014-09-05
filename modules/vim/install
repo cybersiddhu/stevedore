@@ -4,34 +4,62 @@
 CUSTOMDIR=/custom
 VIMDIR=${CUSTOMDIR}/dotfiles/vim
 VIMVERSION=vim-7.4
-VIMURL=ftp://ftp.vim.org/pub/vim/unix/${VIMVERSION}.tar.bz2
-TMPVIM=$(mktemp -d)
-cd $TMPVIM && curl -s -O $VIMURL
-tar xvjf ${VIMVERSION}.tar.bz2 && cd vim74
 
-#Check for python installation
-#PYFULL=3.3.2
-#PYMAJOR=3.3
-#PYCONFIG=/custom/pyenv/versions/${PYFULL}/lib/python${PYMAJOR}/config-${PYMAJOR}
+install_vim () {
+    VIMURL=ftp://ftp.vim.org/pub/vim/unix/${VIMVERSION}.tar.bz2
+    TMPVIM=$(mktemp -d)
+    cd $TMPVIM && curl -s -O $VIMURL
+    tar xvjf ${VIMVERSION}.tar.bz2 && cd vim74
 
-#if [ -d ${PYCONFIG} ]; then
-    #pyenv global ${PYFULL}
-    #LDFLAGS='-export-dynamic' ./configure --enable-python3interp --enable-multibyte \
-        #--with-features=huge --with-python3-config-dir=${PYCONFIG} --enable-gui=no \
-        #--with-x=yes --enable-luainterp=yes  --with-lua-prefix=/usr
-#else
-./configure --with-features=huge --enable-multibyte --enable-gui=no \
-                --enable-luainterp=yes  --with-lua-prefix=/usr
-#fi
+#LDFLAGS='-export-dynamic' ./configure --enable-pythoninterp --enable-multibyte \
+    ./configure --enable-pythoninterp --enable-multibyte \
+        --with-python-config-dir=/usr/lib64/python2.7/config \
+        --with-features=huge --enable-gui=no \
+        --with-x=yes --enable-luainterp=yes  --with-lua-prefix=/usr
 
-make -j6
-cp src/vim ${CUSTOMDIR}/bin/
-cp -R runtime $VIMDIR/
-rm -rf $TMPVIM
+    make -j6
+    cp src/vim ${CUSTOMDIR}/bin/
+    cp -R runtime $VIMDIR/
+}
 
+install_fonts () {
 # setup for powerfile fonts
-curl -L -o /usr/share/fonts/powerlinesymbols.otf https://github.com/Lokaltog/powerline/blob/develop/font/PowerlineSymbols.otf\?raw\=true
-curl -o /usr/share/fonts/Inconsolata-powerline.otf https://raw2.github.com/Lokaltog/powerline-fonts/master/Inconsolata/Inconsolata%20for%20Powerline.otf
-curl -o /usr/share/fontconfig/conf.avail/10-powerline-symbols.conf https://raw2.github.com/Lokaltog/powerline/develop/font/10-powerline-symbols.conf
-cd /etc/fonts/conf.d && ln -sf /usr/share/fontconfig/conf.avail/10-powerline-symbols.conf .
-fc-cache -vf /usr/share/fonts
+    curl -L -o /usr/share/fonts/powerlinesymbols.otf https://github.com/Lokaltog/powerline/blob/develop/font/PowerlineSymbols.otf\?raw\=true
+    curl -o /usr/share/fonts/Inconsolata-powerline.otf https://raw2.github.com/Lokaltog/powerline-fonts/master/Inconsolata/Inconsolata%20for%20Powerline.otf
+    curl -o /usr/share/fontconfig/conf.avail/10-powerline-symbols.conf https://raw2.github.com/Lokaltog/powerline/develop/font/10-powerline-symbols.conf
+    cd /etc/fonts/conf.d 
+    ln -sf /usr/share/fontconfig/conf.avail/10-powerline-symbols.conf .
+    fc-cache -vf /usr/share/fonts
+}
+
+install_packages () {
+    yum -y install ctags ncurses ncurses-libs ncurses-devel fontconfig lua lua-devel python-devel
+}
+
+install_vim_config () {
+    mkdir -p /custom/bin && mkdir -p /custom/dotfiles/vim 
+
+    curl http://beyondgrep.com/ack-2.10-single-file > /usr/local/bin/ack 
+    chmod 0755 /usr/local/bin/ack
+
+    git clone https://github.com/gmarik/Vundle.vim.git /custom/dotfiles/vim/bundle/Vundle.vim
+    git clone https://github.com/cybersiddhu/spf13-vim.git -b feature/modular /custom/dotfiles/vim/spf13
+
+    ln -sf /custom/dotfiles/vim/spf13/.vimrc.before /custom/dotfiles/vim/.vimrc.before
+    ln -sf /custom/dotfiles/vim/spf13/.vimrc.before.fork /custom/dotfiles/vim/.vimrc.before.fork
+    ln -sf /custom/dotfiles/vim/spf13/.vimrc /custom/dotfiles/vim/.vimrc 
+    ln -sf /custom/dotfiles/vim/spf13/.vimrc.bundles /custom/dotfiles/vim/.vimrc.bundles
+    ln -sf /custom/dotfiles/vim/spf13/.vimrc.bundles.fork /custom/dotfiles/vim/.vimrc.bundles.fork
+    ln -sf /custom/dotfiles/vim/spf13/.vimrc.fork /custom/dotfiles/vim/.vimrc.fork
+}
+
+main () {
+    install_packages
+    install_vim_config
+    install_vim
+    install_fonts
+}
+
+main
+
+
