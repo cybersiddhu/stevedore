@@ -19,3 +19,7 @@
     let g:spf13_bundle_groups=['general','neocomplete','programming','go']
     let g:sidds_bundle_groups=['misc']
 " }
+"
+" Custom consolidated directory " {
+    let g:spf13_consolidated_directory=$VIMDIR
+" }

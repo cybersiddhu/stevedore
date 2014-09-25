@@ -11,7 +11,8 @@ tar xvzf $GOTARBALL -C $GODIR && cd $GODIR/go/src
 ./all.bash
 
 # Additional tool
-yum -y install mercurial
+yum -y install mercurial rpm-build ruby-devel
+gem install fpm --no-ri --no-rdoc
 
 # setup vim configurations
 GODIR=${CUSTOMDIR}/stevedore/modules/go
