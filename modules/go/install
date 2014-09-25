@@ -1,31 +1,52 @@
 #!/bin/zsh
 
-GOTARBALL=go1.3.src.tar.gz
-GOURL=http://golang.org/dl/${GOTARBALL}
-GODIR=${CUSTOMDIR}/golang
-mkdir -p $GODIR
+CUSTOMDIR=/custom
 
-TMPGO=$(mktemp -d)
-cd $TMPGO && curl -L -s -O $GOURL
-tar xvzf $GOTARBALL -C $GODIR && cd $GODIR/go/src
-./all.bash
+install_go () {
+    GOTARBALL=go1.3.1.src.tar.gz
+    GOURL=https://storage.googleapis.com/golang/${GOTARBALL}
+    GODIR=${CUSTOMDIR}/golang
+    mkdir -p $GODIR
 
+    TMPGO=$(mktemp -d)
+    cd $TMPGO && curl -L -s -O $GOURL
+    tar xvzf $GOTARBALL -C $GODIR && cd $GODIR/go/src
+    ./all.bash
+}
+
+
+install_packages () {
 # Additional tool
-yum -y install mercurial rpm-build ruby-devel
-gem install fpm --no-ri --no-rdoc
+    yum -y install mercurial rpm-build ruby-devel
+    gem install fpm --no-ri --no-rdoc
+}
 
+
+do_vim_setup () {
 # setup vim configurations
-GODIR=${CUSTOMDIR}/stevedore/modules/go
-VIMDIR=${CUSTOMDIR}/dotfiles/vim
+    GOMODDIR=${CUSTOMDIR}/stevedore/modules/go
+    VIMDIR=${CUSTOMDIR}/dotfiles/vim
 
-if [ -e ${VIMDIR} ]; then
-    if [ -e "${GODIR}/.vimrc.before.local" ]; then
-        cp ${GODIR}/.vimrc.before.local ${VIMDIR}/
+    if [ -e ${VIMDIR} ]; then
+        if [ -e "${GOMODDIR}/.vimrc.before.local" ]; then
+            cp ${GOMODDIR}/.vimrc.before.local ${VIMDIR}/
+        fi
+        if [ -e "${GOMODDIR}/.vimrc.local" ]; then
+            cp ${GOMODDIR}/.vimrc.local ${VIMDIR}/
+        fi
+        if [ -e "${GOMODDIR}/.vimrc.bundles.local" ]; then
+            cp ${GOMODDIR}/.vimrc.local ${VIMDIR}/
+        fi
+
+        ${CUSTOMDIR}/bin/vim -e -s -u ${VIMDIR}/.vimrc +PluginInstall +qall
+        echo Done installing bundle
     fi
-    if [ -e "${GODIR}/.vimrc.local" ]; then
-        cp ${GODIR}/.vimrc.local ${VIMDIR}/
-    fi
-    if [ -e "${GODIR}/.vimrc.bundles.local" ]; then
-        cp ${GODIR}/.vimrc.local ${VIMDIR}/
-    fi
-fi
+}
+
+main () {
+    install_go
+    install_packages
+    do_vim_setup
+}
+
+main

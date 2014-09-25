@@ -65,7 +65,6 @@ main () {
     install_vim_config
     install_vim
     install_fonts
-    install_bundle
 }
 
 main
