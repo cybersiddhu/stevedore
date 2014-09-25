@@ -53,11 +53,19 @@ install_vim_config () {
     ln -sf /custom/dotfiles/vim/spf13/.vimrc.fork /custom/dotfiles/vim/.vimrc.fork
 }
 
+
+install_bundle () {
+    echo installing bundle
+    ${CUSTOMDIR}/bin/vim -e -s -u ${VIMDIR}/.vimrc +PluginInstall +qall
+    echo Done installing bundle
+}
+
 main () {
     install_packages
     install_vim_config
     install_vim
     install_fonts
+    install_bundle
 }
 
 main
