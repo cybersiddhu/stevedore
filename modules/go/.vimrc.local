@@ -1,5 +1,5 @@
 " custom settings from vim-go pluin {
-    "let g:go_disable_autoinstall = 1
+    let g:go_disable_autoinstall = 1
      let g:syntastic_mode_map = { 'mode': 'active',
    \ 'active_filetypes': [],
        \ 'passive_filetypes': ['go'] }
@@ -15,15 +15,61 @@
 " Run commands, such as go run with <leader>r for the current file or go build
 " and go test for the current package with <leader>b and <leader>t
     au FileType go nmap <leader>r :GoRun %<CR>
-    au FileType go nmap <Leader>i <Plug>(go-info)
     au FileType go nmap <leader>t <Plug>(go-test)
-" Replace gd (Goto Declaration) for the word under your cursor (replaces
-" current buffer)
-    au FileType go nmap gd <Plug>(go-def)
 " open the definition/declaration in a new vertical, horizontal or tab for the
 " word under your cursor
     au FileType go nmap <Leader>ds <Plug>(go-def-split)
     au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
     au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+" }
+
+function! GoErrorReport()
+    if match(expand('%'),'\m_test\.go$') == -1
+        call GoBuild()
+    else
+        call GoTestCompile()
+    endif
+endfunction
+
+function! GoBuild()
+    let default_makeprg = &makeprg
+    let &makeprg = "go build -o /dev/null ."
+    echon "vim-go: " | echohl Identifier | echon "building ..."| echohl None
+    silent! exe 'make!'
+    redraw!
+    cwindow
+    let errors = getqflist()
+    if !empty(errors)
+        cc 1 "jump to first error if there is any
+    else
+        redraws! | echon "vim-go: " | echohl Function | echon "[build] SUCCESS"| echohl None
+    endif
+    let &makeprg = default_makeprg
+endfunction
+
+function! GoTestCompile()
+    let command = "go test -c ."
+    if len(a:000)
+        let command = "go test -c" . expand(a:1)
+    endif
+    echon "vim-go: " | echohl Identifier | echon "running test compile ..." | echohl None
+    let out = go#tool#ExecuteInDir(command)
+    if v:shell_error
+        call go#tool#ShowErrors(out)
+    else
+        call setqflist([])
+    endif
+    cwindow
+    let errors = getqflist()
+    if !empty(errors)
+        cc 1 "jump to first error if there is any
+    else
+        redraw | echon "vim-go: " | echohl Function | echon "[test compile] PASS" | echohl None
+    endif
+endfunction
+
+" run build or test report errors on saving the file  {
+au FileType go au BufWritePre,FileWritePre <buffer> :GoFmt
+au FileType go au BufWritePost,FileWritePost <buffer> call GoErrorReport()
 " }
 
