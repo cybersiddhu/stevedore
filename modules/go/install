@@ -47,10 +47,8 @@ install_zmq () {
     ZMQTARBALL=zeromq-4.0.4.tar.gz
     ZMQURL=http://download.zeromq.org/${ZMQTARBALL}
     TMPZMQ=$(mktemp -d)
-    TMPZMQDIR=${TMPZMQ}/zmq 
-    mkdir -p $TMPZMQDIR
     cd $TMPZMQ && curl -L -s -O $ZMQURL
-    tar xvzf $ZMQTARBALL -C $TMPZMQDIR && cd $TMPZMQDIR
+    tar xvzf $ZMQTARBALL && cd zeromq-4.0.4 
     ./configure && make -j7 && make install
     echo "/usr/local/lib" > /etc/ld.so.conf.d/zmq.conf
     ldconfig
