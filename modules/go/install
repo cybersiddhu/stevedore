@@ -17,7 +17,7 @@ install_go () {
 
 install_packages () {
 # Additional tool
-    yum -y install mercurial rpm-build ruby-devel
+    yum -y install mercurial rpm-build ruby-devel gcc-c++ glibc-static libstdc++-static
     gem install fpm --no-ri --no-rdoc
 }
 
@@ -43,10 +43,24 @@ do_vim_setup () {
     fi
 }
 
+install_zmq () {
+    ZMQTARBALL=zeromq-4.0.4.tar.gz
+    ZMQURL=http://download.zeromq.org/${ZMQTARBALL}
+    TMPZMQ=$(mktemp -d)
+    TMPZMQDIR=${TMPZMQ}/zmq 
+    mkdir -p $TMPZMQDIR
+    cd $TMPZMQ && curl -L -s -O $ZMQURL
+    tar xvzf $ZMQTARBALL -C $TMPZMQDIR && cd $TMPZMQDIR
+    ./configure && make -j7 && make install
+    echo "/usr/local/lib" > /etc/ld.so.conf.d/zmq.conf
+    ldconfig
+}
+
 main () {
     install_go
     install_packages
     do_vim_setup
+    install_zmq
 }
 
 main
