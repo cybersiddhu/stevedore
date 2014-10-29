@@ -5,7 +5,7 @@ VIMBUNDLE=${VIMDIR}/bundle
 
 install_js_modules () {
     yum -y install nodejs npm --enablerepo=epel
-    npm install -g yo gulp bower generator-angular generator-gulp-angular
+    npm install -g yo gulp bower generator-angular generator-gulp-angular generator-react-webpack
 }
 
 install_js_vim_config () {
