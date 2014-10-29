@@ -4,6 +4,7 @@ VIMDIR=${CUSTOMDIR}/dotfiles/vim
 VIMBUNDLE=${VIMDIR}/bundle
 
 install_js_modules () {
+    yum makecache fast
     yum -y install nodejs npm --enablerepo=epel
     npm install -g yo gulp bower generator-react-webpack  generator-angular generator-gulp-angular 
 }
