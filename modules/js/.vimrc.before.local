@@ -19,7 +19,7 @@
     let g:spf13_consolidated_directory=$VIMDIR
 " }
 
-" Bundle group for golang {
-    let g:spf13_bundle_groups=['general','neocomplete','programming','javascript','html']
+" Bundle group for javascript {
+    let g:spf13_bundle_groups=['general','snipmate','programming','javascript','html']
     let g:sidds_bundle_groups=['misc']
 " }
