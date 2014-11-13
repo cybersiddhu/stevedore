@@ -5,9 +5,10 @@ VIMBUNDLE=${VIMDIR}/bundle
 
 install_js_modules () {
     yum makecache fast
-    yum -y install nodejs npm --enablerepo=epel
+    yum -y install nodejs npm ruby --enablerepo=epel
     npm install -g yo gulp bower generator-angular generator-gulp-angular 
     npm install -g webpack webpack-dev-server
+    gem install sass
 }
 
 install_js_vim_config () {
