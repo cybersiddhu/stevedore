@@ -224,7 +224,7 @@ _stevedore_env_new () {
 
 ##############################################################################
 ## -- Make sure it has current user permission
-RUN chown -R $CURRUID:$CURRUID /custom && localedef -c -i en_US -f UTF-8 en_US.UTF-8
+RUN chown -R $CURRUID:$CURRUID /custom 
 ENV LANG en_US.UTF-8
 ENV LC_ALL en_US.UTF-8 
 WORKDIR $HOME
