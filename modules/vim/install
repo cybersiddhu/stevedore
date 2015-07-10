@@ -70,6 +70,7 @@ main () {
     install_packages
     install_vim_config
     #install_vim_from_src
+    install_bundle
     install_fonts
 }
 
