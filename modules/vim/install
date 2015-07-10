@@ -13,9 +13,8 @@ install_vim_from_src () {
 
 #LDFLAGS='-export-dynamic' ./configure --enable-pythoninterp --enable-multibyte \
     ./configure --enable-pythoninterp --enable-multibyte \
-        --with-python-config-dir=/usr/lib64/python2.7/config \
         --with-features=huge --enable-gui=no \
-        --with-x=yes --enable-luainterp=yes  --with-lua-prefix=/usr
+        --with-x=yes --enable-luainterp=yes 
     make -j6
     cp src/vim ${CUSTOMDIR}/bin/
     cp -R runtime $VIMDIR/
