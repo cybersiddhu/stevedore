@@ -14,10 +14,8 @@ install_vim_from_src () {
 #LDFLAGS='-export-dynamic' ./configure --enable-pythoninterp --enable-multibyte \
     ./configure --enable-pythoninterp --enable-multibyte \
         --with-python-config-dir=/usr/lib64/python2.7/config \
-
         --with-features=huge --enable-gui=no \
         --with-x=yes --enable-luainterp=yes  --with-lua-prefix=/usr
-
     make -j6
     cp src/vim ${CUSTOMDIR}/bin/
     cp -R runtime $VIMDIR/
@@ -36,7 +34,7 @@ install_fonts () {
 
 install_packages () {
     #yum -y install ctags ncurses ncurses-libs ncurses-devel fontconfig lua lua-devel python-devel
-    apk add vim ctags fontconfig
+    apk add ctags fontconfig python-dev lua-dev ncurses-dev
 }
 
 install_vim_config () {
@@ -60,14 +58,14 @@ install_vim_config () {
 
 install_bundle () {
     echo installing bundle
-    /usr/bin/vim -e -s -u ${VIMDIR}/.vimrc +PluginInstall +qall
+    $CUSTOMDIR/bin/vim -e -s -u ${VIMDIR}/.vimrc +PluginInstall +qall
     echo Done installing bundle
 }
 
 main () {
     install_packages
     install_vim_config
-    #install_vim_from_src
+    install_vim_from_src
     install_bundle
     install_fonts
 }

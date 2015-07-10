@@ -30,7 +30,7 @@ fi
 
 install_bundle () {
     echo installing bundle
-    /usr/bin/vim -e -s -u ${VIMDIR}/.vimrc +PluginInstall +qall
+    $CUSTOMDIR/bin/vim -e -s -u ${VIMDIR}/.vimrc +PluginInstall +qall
     echo Done installing bundle
 }
 
