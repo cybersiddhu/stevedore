@@ -29,11 +29,9 @@ fi
 }
 
 install_bundle () {
-    if [ -e ${CUSTOMDIR}/bin/vim ]; then
-        echo installing bundle
-        /usr/bin/vim -e -s -u ${VIMDIR}/.vimrc +PluginInstall +qall
-        echo Done installing bundle
-    fi
+    echo installing bundle
+    /usr/bin/vim -e -s -u ${VIMDIR}/.vimrc +PluginInstall +qall
+    echo Done installing bundle
 }
 
 
