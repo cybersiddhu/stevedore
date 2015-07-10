@@ -5,7 +5,7 @@ CUSTOMDIR=/custom
 VIMDIR=${CUSTOMDIR}/dotfiles/vim
 VIMVERSION=vim-7.4
 
-install_vim () {
+install_vim_from_src () {
     VIMURL=ftp://ftp.vim.org/pub/vim/unix/${VIMVERSION}.tar.bz2
     TMPVIM=$(mktemp -d)
     cd $TMPVIM && curl -s -O $VIMURL
@@ -14,6 +14,7 @@ install_vim () {
 #LDFLAGS='-export-dynamic' ./configure --enable-pythoninterp --enable-multibyte \
     ./configure --enable-pythoninterp --enable-multibyte \
         --with-python-config-dir=/usr/lib64/python2.7/config \
+
         --with-features=huge --enable-gui=no \
         --with-x=yes --enable-luainterp=yes  --with-lua-prefix=/usr
 
@@ -33,7 +34,8 @@ install_fonts () {
 }
 
 install_packages () {
-    yum -y install ctags ncurses ncurses-libs ncurses-devel fontconfig lua lua-devel python-devel
+    #yum -y install ctags ncurses ncurses-libs ncurses-devel fontconfig lua lua-devel python-devel
+    apk add vim ctags fontconfig
 }
 
 install_vim_config () {
@@ -57,14 +59,14 @@ install_vim_config () {
 
 install_bundle () {
     echo installing bundle
-    ${CUSTOMDIR}/bin/vim -e -s -u ${VIMDIR}/.vimrc +PluginInstall +qall
+    /usr/bin/vim -e -s -u ${VIMDIR}/.vimrc +PluginInstall +qall
     echo Done installing bundle
 }
 
 main () {
     install_packages
     install_vim_config
-    install_vim
+    #install_vim_from_src
     install_fonts
 }
 
