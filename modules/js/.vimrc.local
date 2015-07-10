@@ -1,3 +1,9 @@
 " Reserve tab for snipmate, unbind tab from YCM {
     let g:ycm_key_list_select_completion = []
 " }
+" Syntastic checker for javascript {
+    let g:syntastic_javascript_checkers = ['eslint']
+" }
+" Disable omnifunc for js {
+    let g:ycm_filetype_specific_completion_to_disable = { 'javascript': 1 }
+" }

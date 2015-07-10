@@ -1,2 +1,2 @@
 Plugin 'mxw/vim-jsx'
-Plugin 'justinj/vim-react-snippets'
+Plugin 'mileszs/vim-react-snippets'
