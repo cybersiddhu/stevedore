@@ -238,7 +238,7 @@ ENTRYPOINT ["/bin/zsh", "-i", "-l"]
 EOF
     cat >$1/Dockerfile.pre <<EOF
 FROM stevedore
-RUN useradd -m -s /bin/zsh -u $CURRUID $USER && \
+RUN adduser -s /bin/zsh -u $CURRUID $USER && \
  echo "$USER ALL=(ALL) NOPASSWD: ALL" >/etc/sudoers.d/$USER && \
  chmod 0440 /etc/sudoers.d/$USER && cp -a $(which sudo) $(which sudo).real 
 
