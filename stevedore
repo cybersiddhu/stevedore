@@ -65,7 +65,7 @@ _stevedore_cmd_init () {
     mkdir $BUILDDIR
     cat >> $BUILDDIR/Dockerfile <<EOF
 $DOCKERFILE
-RUN apk update && apk add zsh git sudo man curl make gcc tar glib bzip2
+RUN apk update && apk add zsh git sudo man curl make gcc tar glib bzip2 tmux
 EOF
     $DOCKER build -rm -t stevedore $BUILDDIR | tee $BUILDDIR/log 
     if grep -q Successfully $BUILDDIR/log
@@ -238,7 +238,7 @@ ENTRYPOINT ["/bin/zsh", "-i", "-l"]
 EOF
     cat >$1/Dockerfile.pre <<EOF
 FROM stevedore
-RUN adduser -s /bin/zsh -u $CURRUID $USER && \
+RUN adduser -D -s /bin/zsh -u $CURRUID $USER && \
  echo "$USER ALL=(ALL) NOPASSWD: ALL" >/etc/sudoers.d/$USER && \
  chmod 0440 /etc/sudoers.d/$USER && cp -a $(which sudo) $(which sudo).real 
 
