@@ -4,11 +4,12 @@ VIMDIR=${CUSTOMDIR}/dotfiles/vim
 VIMBUNDLE=${VIMDIR}/bundle
 
 install_js_modules () {
-    yum makecache fast
-    yum -y install cmake gcc-c++ nodejs npm ruby --enablerepo=epel
-    npm install -g yo gulp bower generator-generator generator-angular generator-gulp-angular 
-    npm install -g webpack webpack-dev-server
-    gem install sass
+    #yum makecache fast
+    #yum -y install cmake gcc-c++ nodejs npm ruby --enablerepo=epel
+    #npm install -g yo gulp bower generator-generator generator-angular generator-gulp-angular 
+    #npm install -g webpack webpack-dev-server
+    #gem install sass
+    apk add nodejs
 }
 
 install_js_vim_config () {
@@ -30,7 +31,7 @@ fi
 install_bundle () {
     if [ -e ${CUSTOMDIR}/bin/vim ]; then
         echo installing bundle
-        ${CUSTOMDIR}/bin/vim -e -s -u ${VIMDIR}/.vimrc +PluginInstall +qall
+        /usr/bin/vim -e -s -u ${VIMDIR}/.vimrc +PluginInstall +qall
         echo Done installing bundle
     fi
 }
