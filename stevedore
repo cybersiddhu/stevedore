@@ -65,7 +65,7 @@ _stevedore_cmd_init () {
     mkdir $BUILDDIR
     cat >> $BUILDDIR/Dockerfile <<EOF
 $DOCKERFILE
-RUN apk update && apk add zsh git sudo man curl alpine-sdk make gcc tar glib bzip2 tmux
+RUN apk update && apk add zsh git sudo man curl alpine-sdk make gcc tar glib bzip2 tmux ssh
 EOF
     $DOCKER build -rm -t stevedore $BUILDDIR | tee $BUILDDIR/log 
     if grep -q Successfully $BUILDDIR/log
