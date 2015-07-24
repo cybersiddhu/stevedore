@@ -21,7 +21,7 @@ _defcmd () {
     HELP="$(printf "%s\n%-10s %s\n\n" "$HELP" "$1" "$2")"
 }
 
-DOCKERFILE="FROM alpine"
+DOCKERFILE="FROM centos"
 
 ##############################################################################
 # Commands
@@ -65,7 +65,9 @@ _stevedore_cmd_init () {
     mkdir $BUILDDIR
     cat >> $BUILDDIR/Dockerfile <<EOF
 $DOCKERFILE
-RUN apk update && apk add zsh git sudo man curl alpine-sdk make gcc tar glib bzip2 tmux ssh
+RUN yum -y remove iputils \
+    && yum -y upgrade \
+    && yum -y install zsh git sudo which man curl make gcc tree tar glibc-common bzip2
 EOF
     $DOCKER build -rm -t stevedore $BUILDDIR | tee $BUILDDIR/log 
     if grep -q Successfully $BUILDDIR/log
@@ -224,7 +226,7 @@ _stevedore_env_new () {
 
 ##############################################################################
 ## -- Make sure it has current user permission
-RUN chown -R $CURRUID:$CURRUID /custom 
+RUN chown -R $CURRUID:$CURRUID /custom && localedef -c -i en_US -f UTF-8 en_US.UTF-8 
 ENV LANG en_US.UTF-8
 ENV LC_ALL en_US.UTF-8 
 WORKDIR $HOME
