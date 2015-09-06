@@ -3,7 +3,7 @@
 CUSTOMDIR=/custom
 
 install_go () {
-    GOTARBALL=go1.3.1.src.tar.gz
+    GOTARBALL=go1.5.src.tar.gz
     GOURL=https://storage.googleapis.com/golang/${GOTARBALL}
     GODIR=${CUSTOMDIR}/golang
     mkdir -p $GODIR
