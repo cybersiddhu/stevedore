@@ -64,6 +64,7 @@ install_zmq () {
 }
 
 main () {
+    install_go14
     install_go
     install_packages
     do_vim_setup
