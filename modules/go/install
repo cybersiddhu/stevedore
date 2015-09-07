@@ -5,11 +5,10 @@ CUSTOMDIR=/custom
 install_go14 () {
     TMPGO4=$(mktemp -d)
     GO4TARBALL=go1.4.2.linux-amd64.tar.gz
-    GO4DIR=/root/go1.4/bin
+    GO4DIR=/root/go1.4
     mkdir -p $GO4DIR
     cd $TMPGO4 && curl -L -s -O https://storage.googleapis.com/golang/${GO4TARBALL}
-    tar xvzf $GO4TARBALL
-    cp $TMPGO4/go/bin/go $GO4DIR
+    tar xvzf $GO4TARBALL -C $GO4DIR
 }
 
 install_go () {
