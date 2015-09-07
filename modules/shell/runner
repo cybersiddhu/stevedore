@@ -1,7 +1,7 @@
 ## -- create custom folder to keep dotfile and dev tools customizing softwares
 RUN mkdir -p /custom/dotfiles/shell 
-RUN curl -o /custom/dotfiles/shell/.zshrc https://raw.githubusercontent.com/cybersiddhu/dotfiles/master/zsh/zshrc.docker
-RUN git clone https://github.com/zsh-users/antigen.git /custom/antigen \
+RUN curl -o /custom/dotfiles/shell/.zshrc https://raw.githubusercontent.com/cybersiddhu/dotfiles/master/zsh/zshrc.docker \
+    && git clone https://github.com/zsh-users/antigen.git /custom/antigen \
     && mkdir -p /custom/dotfiles/.antigen \
     && rpm -ivh http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm \
     && yum -y install tmux && mkdir -p /custom/dotfiles/tmux \
