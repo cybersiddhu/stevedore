@@ -6,8 +6,9 @@ VIMBUNDLE=${VIMDIR}/bundle
 install_js_modules () {
     yum makecache fast
     yum -y install cmake gcc-c++ ruby --enablerepo=epel
-    curl --silent --location https://rpm.nodesource.com/setup_4.x | bash -
+    curl --silent --location https://rpm.nodesource.com/setup_6.x | bash -
     yum -y install nodejs
+    npm install -g create-react-app
 }
 
 install_js_vim_config () {
