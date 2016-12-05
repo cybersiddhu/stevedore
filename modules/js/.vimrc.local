@@ -5,5 +5,5 @@
     let g:syntastic_javascript_checkers = ['eslint']
 " }
 " Disable omnifunc for js {
-    let g:ycm_filetype_specific_completion_to_disable = { 'javascript': 1 }
+    "let g:ycm_filetype_specific_completion_to_disable = { 'javascript': 1 }
 " }
