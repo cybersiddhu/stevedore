@@ -9,7 +9,7 @@ install_vim_from_src () {
     VIMURL=https://github.com/vim/vim/archive/v7.4.2367.tar.gz
     TMPVIM=$(mktemp -d)
     cd $TMPVIM && curl -s -o ${VIMVERSION} $VIMURL
-    tar xvjf ${VIMVERSION} && cd vim-7.4.2367
+    tar xvzf ${VIMVERSION} && cd vim-7.4.2367
 
     ./configure --enable-pythoninterp --enable-multibyte \
         --with-features=huge --enable-gui=no \
