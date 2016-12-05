@@ -8,7 +8,7 @@ VIMVERSION=vim-7.4.2367.tar.gz
 install_vim_from_src () {
     VIMURL=https://github.com/vim/vim/archive/v7.4.2367.tar.gz
     TMPVIM=$(mktemp -d)
-    cd $TMPVIM && curl -s -o ${VIMVERSION} $VIMURL
+    cd $TMPVIM && curl -s -k -L -o ${VIMVERSION} $VIMURL
     tar xvzf ${VIMVERSION} && cd vim-7.4.2367
 
     ./configure --enable-pythoninterp --enable-multibyte \
