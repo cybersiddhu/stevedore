@@ -3,15 +3,14 @@
 #Install latest vim and include python support if present
 CUSTOMDIR=/custom
 VIMDIR=${CUSTOMDIR}/dotfiles/vim
-VIMVERSION=vim-7.4
+VIMVERSION=vim-7.4.2367.tar.gz
 
 install_vim_from_src () {
-    VIMURL=ftp://ftp.vim.org/pub/vim/unix/${VIMVERSION}.tar.bz2
+    VIMURL=https://github.com/vim/vim/archive/v7.4.2367.tar.gz
     TMPVIM=$(mktemp -d)
-    cd $TMPVIM && curl -s -O $VIMURL
-    tar xvjf ${VIMVERSION}.tar.bz2 && cd vim74
+    cd $TMPVIM && curl -s -o ${VIMVERSION} $VIMURL
+    tar xvjf ${VIMVERSION} && cd vim-7.4.2367
 
-#LDFLAGS='-export-dynamic' ./configure --enable-pythoninterp --enable-multibyte \
     ./configure --enable-pythoninterp --enable-multibyte \
         --with-features=huge --enable-gui=no \
         --with-x=yes --enable-luainterp=yes --with-lua-prefix=/usr
