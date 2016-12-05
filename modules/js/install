@@ -5,7 +5,7 @@ VIMBUNDLE=${VIMDIR}/bundle
 
 install_js_modules () {
     yum makecache fast
-    yum -y install cmake gcc-c++ ruby --enablerepo=epel
+    yum -y install cmake gcc-c++ --enablerepo=epel
     curl --silent --location https://rpm.nodesource.com/setup_6.x | bash -
     yum -y install nodejs
     npm install -g create-react-app eslint-config-react-app@0.3.0 eslint@3.8.1 babel-eslint@7.0.0 eslint-plugin-react@6.4.1 eslint-plugin-import@2.0.1 eslint-plugin-jsx-a11y@2.2.3 eslint-plugin-flowtype@2.21.0
