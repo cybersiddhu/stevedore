@@ -21,5 +21,5 @@
 
 " Bundle group for javascript {
     let g:spf13_bundle_groups=['general','programming','javascript','html']
-    let g:sidds_bundle_groups=['misc', 'youcompletesnip']
+    let g:sidds_bundle_groups=['misc', 'ycmultisnip']
 " }
