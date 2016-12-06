@@ -1,6 +1,6 @@
 Plugin 'mxw/vim-jsx'
 
-if count(g:sidds_bundle_groups, 'ycmultiship')
+if count(g:sidds_bundle_groups, 'ycmultisnip')
     " ES2015 code snippets
     Plugin 'epilande/vim-es2015-snippets'
     Plugin 'epilande/vim-react-snippets'
