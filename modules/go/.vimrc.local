@@ -25,7 +25,7 @@
     au FileType go nmap <leader>r <Plug>(go-run)
     au FileType go nmap <leader>b <Plug>(go-build)
     au FileType go nmap <leader>t <Plug>(go-test)
-    au FileType go nmap <leader>c <Plug>(go-coverage)
+    au FileType go nmap <leader>c <Plug>(go-coverage-toggle)
 " open the definition/declaration in a new vertical, horizontal or tab for the
 " word under your cursor
     au FileType go nmap <Leader>ds <Plug>(go-def-split)
@@ -39,9 +39,9 @@
 
 function! GoErrorReport()
     if match(expand('%'),'\m_test\.go$') == -1
-        call GoBuild()
+        call go#cmd#Build(0)
     else
-        call GoTestCompile()
+        call go#cmd#Test(0, 1)
     endif
 endfunction
 
