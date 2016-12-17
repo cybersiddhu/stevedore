@@ -9,17 +9,19 @@
     let g:go_fmt_command = "goimports"
 " }
 
+" jump between errors in quickfix list {
+    map <C-n> :cnext<CR>
+    map <C-m> :cprevious<CR>
+    nnoremap <leader-a> :cclose<CR>
+" }
+
 " custom golang mapping from vim-go plugin {
 " Show type info for the word under your cursor with <leader>i
     au FileType go nmap <Leader>i <Plug>(go-info)
 " Show a list of interfaces which is implemented by the type under your cursor with <leader>s
     au FileType go nmap <Leader>s <Plug>(go-implements)
-" Open the relevant Godoc for the word under the cursor with <leader>gd
-    au FileType go nmap <Leader>gd <Plug>(go-doc)
-    au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
 " Run commands, such as go run with <leader>r for the current file or go build
 " and go test for the current package with <leader>b and <leader>t
-    "au FileType go nmap <leader>r :GoRun %<CR>
     au FileType go nmap <leader>r <Plug>(go-run)
     au FileType go nmap <leader>b <Plug>(go-build)
     au FileType go nmap <leader>t <Plug>(go-test)
