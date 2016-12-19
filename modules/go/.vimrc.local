@@ -116,8 +116,3 @@ endfunction
     au FileType go nmap <Leader>av <Plug>(go-alternate-vertical)
 " } 
 
-" run build or test report errors on saving the file  {
-au FileType go au BufWritePre,FileWritePre <buffer> :GoFmt
-au FileType go au BufWritePost,FileWritePost <buffer> call GoErrorReport()
-" }
-
