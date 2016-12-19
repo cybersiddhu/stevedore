@@ -34,7 +34,7 @@
 " Run commands, such as go run with <leader>r for the current file or go build
 " and go test for the current package with <leader>b and <leader>t
     au FileType go nmap <Leader>r <Plug>(go-run)
-    au FileType go nmap <Leader>b <Plug>(go-build)
+    au FileType go nmap <Leader>b :<C-u>call GoErrorReport()<CR>
     au FileType go nmap <Leader>t <Plug>(go-test)
     au FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
 " Calls `go-metalinter` for the current directory
@@ -67,43 +67,6 @@ function! GoErrorReport()
         call go#cmd#Build(0)
     else
         call go#cmd#Test(0, 1)
-    endif
-endfunction
-
-function! GoBuild()
-    let default_makeprg = &makeprg
-    let &makeprg = "go build -o /dev/null ."
-    echon "vim-go: " | echohl Identifier | echon "building ..."| echohl None
-    silent! exe 'make!'
-    redraw!
-    cwindow
-    let errors = getqflist()
-    if !empty(errors)
-        cc 1 "jump to first error if there is any
-    else
-        redraws! | echon "vim-go: " | echohl Function | echon "[build] SUCCESS"| echohl None
-    endif
-    let &makeprg = default_makeprg
-endfunction
-
-function! GoTestCompile()
-    let command = "go test -c ."
-    if len(a:000)
-        let command = "go test -c" . expand(a:1)
-    endif
-    echon "vim-go: " | echohl Identifier | echon "running test compile ..." | echohl None
-    let out = go#tool#ExecuteInDir(command)
-    if v:shell_error
-        call go#tool#ShowErrors(out)
-    else
-        call setqflist([])
-    endif
-    cwindow
-    let errors = getqflist()
-    if !empty(errors)
-        cc 1 "jump to first error if there is any
-    else
-        redraw | echon "vim-go: " | echohl Function | echon "[test compile] PASS" | echohl None
     endif
 endfunction
 
