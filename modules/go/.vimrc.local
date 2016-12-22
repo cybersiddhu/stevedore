@@ -29,8 +29,6 @@
 " custom golang mapping from vim-go plugin {
 " Show type info for the word under your cursor with <leader>i
     au FileType go nmap <Leader>i <Plug>(go-info)
-" Show a list of interfaces which is implemented by the type under your cursor with <leader>s
-    au FileType go nmap <Leader>s <Plug>(go-implements)
 " Run commands, such as go run with <leader>r for the current file or go build
 " and go test for the current package with <leader>b and <leader>t
     au FileType go nmap <Leader>r <Plug>(go-run)
@@ -47,19 +45,19 @@
 " open the relevant Godoc for the word under the cursor with <leader>gd or 
 " open it vertically with <leader>gv
 " open it in a tab with <leader>gta
-    au FileType go nmap <Leader>gd <Plug>(go-doc)
-    au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
-    au FileType go nmap <Leader>gta <Plug>(go-doc-tab)
+    au FileType go nmap <Leader>pc <Plug>(go-doc)
+    au FileType go nmap <Leader>pv <Plug>(go-doc-vertical)
+    au FileType go nmap <Leader>pt <Plug>(go-doc-tab)
 " Rename the identifier under the cursor to a new name
-    au FileType go nmap <Leader>rn <Plug>(go-rename)
+    au FileType go nmap <Leader>pn <Plug>(go-rename)
 " Show source files that depends for the current package
-    au FileType go nmap <Leader>gf <Plug>(go-files)
+    au FileType go nmap <Leader>pf <Plug>(go-files)
 " Show dependencies for the current package 
-    au FileType go nmap <Leader>gp <Plug>(go-deps)
+    au FileType go nmap <Leader>pd <Plug>(go-deps)
 " Describe selected syntax: definition, methods, etc
-    au FileType go nmap <Leader>gs <Plug>(go-describe)
+    au FileType go nmap <Leader>ps <Plug>(go-describe)
 " Show the interfaces that the type under the cursor implements
-	au FileType go nmap <Leader>gi <Plug>(go-implements)
+	au FileType go nmap <Leader>pi <Plug>(go-implements)
 " }
 
 function! GoErrorReport()
