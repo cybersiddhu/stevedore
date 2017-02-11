@@ -17,3 +17,7 @@ if count(g:sidds_bundle_groups, 'ycmultiship')
     let g:UltiSnipsJumpForwardTrigger = '<C-j>'
     let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
 endif
+
+" To ensure editorconfig plugin works with fugitive {
+    let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+" }

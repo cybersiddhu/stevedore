@@ -5,11 +5,19 @@ VIMBUNDLE=${VIMDIR}/bundle
 
 install_js_modules () {
     yum makecache fast
-    yum -y install cmake gcc-c++ --enablerepo=epel
+    yum -y install cmake gcc-c++ pcre-devel --enablerepo=epel
     curl --silent --location https://rpm.nodesource.com/setup_6.x | bash -
     yum -y install nodejs
-    npm install -g create-react-app eslint-config-react-app@0.3.0 eslint@3.8.1 babel-eslint@7.0.0 eslint-plugin-react@6.4.1 eslint-plugin-import@2.0.1 eslint-plugin-jsx-a11y@2.2.3 eslint-plugin-flowtype@2.21.0
+    npm install -g create-react-app eslint-config-react-app@0.3.0 eslint@3.8.1 babel-eslint@7.0.0 eslint-plugin-react@6.4.1 eslint-plugin-import@2.0.1 eslint-plugin-jsx-a11y@2.2.3 eslint-plugin-flowtype@2.21.0 eslint-config-formidable
+}
 
+install_editorconfig_core(){
+    cd $(mktemp -d)
+    curl -O -L https://github.com/editorconfig/editorconfig-core-c/archive/v0.12.1.tar.gz
+    tar xvzf v0.12.1.tar.gz
+    cd editorconfig-core-c-0.12.1/
+    cmake .
+    make install
 }
 
 install_js_vim_config () {
@@ -46,6 +54,7 @@ install_youcomplete_me () {
 
 main () {
     install_js_modules
+    install_editorconfig_core
     install_js_vim_config
     install_bundle
     install_youcomplete_me

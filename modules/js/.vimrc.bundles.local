@@ -1,4 +1,5 @@
 Plugin 'mxw/vim-jsx'
+Plugin 'editorconfig/editorconfig-vim'
 
 if count(g:sidds_bundle_groups, 'ycmultisnip')
     " ES2015 code snippets
