@@ -1,5 +1,6 @@
 Plugin 'mxw/vim-jsx'
 Plugin 'editorconfig/editorconfig-vim'
+Plugin 'fleischie/vim-styled-components'
 
 if count(g:sidds_bundle_groups, 'ycmultisnip')
     " ES2015 code snippets
