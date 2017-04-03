@@ -4,12 +4,12 @@ VIMDIR=${CUSTOMDIR}/dotfiles/vim
 VIMBUNDLE=${VIMDIR}/bundle
 
 install_eclim () {
-    yum -y install xorg-x11-server-Xvfb java-1.7.0-openjdk ant wget tree cmake gcc-c++
+    yum -y install xorg-x11-server-Xvfb java-1.8.0-openjdk ant wget tree cmake gcc-c++
     if [ -e ${CUSTOMDIR} ]; then
         TMPJAVA=$(mktemp -d)
-        ECTARBALL=eclipse-standard-luna-R-linux-gtk-x86_64.tar.gz
+        ECTARBALL=eclipse-java-neon-3-linux-gtk-x86_64.tar.gz
         cd $TMPJAVA
-        wget http://ftp.osuosl.org/pub/eclipse/technology/epp/downloads/release/luna/R/${ECTARBALL}
+        wget http://ftp.osuosl.org/pub/eclipse/technology/epp/downloads/release/neon/3/${ECTARBALL}
         tar xvzf $ECTARBALL -C $CUSTOMDIR
         git clone git://github.com/ervandew/eclim.git
         cd ${TMPJAVA}/eclim
@@ -42,7 +42,7 @@ install_bundle () {
 install_youcomplete_me () {
     if [ -e ${VIMBUNDLE}/YouCompleteMe ]; then
         cd ${VIMBUNDLE}/YouCompleteMe
-        ./install.sh
+        ./install.py
     fi
 
 }

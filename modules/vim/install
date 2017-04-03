@@ -22,9 +22,7 @@ install_vim_from_src () {
 install_fonts () {
 # setup for powerfile fonts
     mkdir -p /usr/share/fonts
-    curl -L -o /usr/share/fonts/powerlinesymbols.otf https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
     curl -L -o /usr/share/fonts/Inconsolata-powerline.otf https://raw.githubusercontent.com/powerline/fonts/master/Inconsolata/Inconsolata%20for%20Powerline.otf
-    curl -L -o /usr/share/fontconfig/conf.avail/10-powerline-symbols.conf https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf
     cd /etc/fonts/conf.d 
     ln -sf /usr/share/fontconfig/conf.avail/10-powerline-symbols.conf .
     fc-cache -vf /usr/share/fonts
