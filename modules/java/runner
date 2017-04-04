@@ -1,7 +1,5 @@
 ENV VIMDIR /custom/dotfiles/vim
 RUN git clone https://github.com/cybersiddhu/stevedore.git /custom/stevedore && \
-    chmod u+x /custom/stevedore/modules/vimpy/install && \
     chmod u+x /custom/stevedore/modules/java/install && \
-    /custom/stevedore/modules/vimpy/install && \
     /custom/stevedore/modules/java/install
 
