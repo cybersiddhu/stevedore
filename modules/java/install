@@ -57,6 +57,7 @@ main () {
     install_java_vim_config
     install_bundle
     install_eclim
+    install_gradle
     install_youcomplete_me
 }
 
