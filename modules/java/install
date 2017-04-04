@@ -33,6 +33,12 @@ fi
 
 }
 
+install_gradle () {
+    GRADLE_VERSION=gradle-3.4.1
+    cd $(mktemp -d) && curl -s -L -O https://services.gradle.com/distributions/${GRADLE_VERSION}-bin.zip
+    unzip ${GRADLE_VERSION}-bin.zip -d /opt
+}
+
 install_bundle () {
     echo installing bundle
     ${CUSTOMDIR}/bin/vim -e -s -u ${VIMDIR}/.vimrc +PluginInstall +qall
