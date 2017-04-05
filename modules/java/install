@@ -3,8 +3,12 @@ CUSTOMDIR=/custom
 VIMDIR=${CUSTOMDIR}/dotfiles/vim
 VIMBUNDLE=${VIMDIR}/bundle
 
+install_dep () {
+    yum -y install java-1.8.0-openjdk-headless ant wget tree unzip ctags
+}
+
 install_eclim () {
-    yum -y install xorg-x11-server-Xvfb java-1.8.0-openjdk ant wget tree cmake gcc-c++
+    yum -y install xorg-x11-server-Xvfb java-1.8.0-openjdk ant wget tree cmake gcc-c++ unzip
     if [ -e ${CUSTOMDIR} ]; then
         TMPJAVA=$(mktemp -d)
         ECTARBALL=eclipse-java-neon-3-linux-gtk-x86_64.tar.gz
@@ -56,7 +60,7 @@ install_youcomplete_me () {
 main () {
     install_java_vim_config
     install_bundle
-    install_eclim
+    install_dep
     install_gradle
     install_youcomplete_me
 }

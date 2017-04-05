@@ -3,6 +3,6 @@
 " }
 
 " Bundle group for java {
-    let g:spf13_bundle_groups=['general','programming', 'youcompleteme']
+    let g:spf13_bundle_groups=['general','programming', 'youcompleteme', 'java']
     let g:sidds_bundle_groups=['misc']
 " }
