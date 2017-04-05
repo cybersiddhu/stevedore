@@ -4,7 +4,7 @@ VIMDIR=${CUSTOMDIR}/dotfiles/vim
 VIMBUNDLE=${VIMDIR}/bundle
 
 install_dep () {
-    yum -y install java-1.8.0-openjdk-headless ant wget tree unzip ctags cmake
+    yum -y install java-1.8.0-openjdk-headless ant wget tree unzip ctags cmake gcc-c++
 }
 
 install_eclim () {
@@ -39,7 +39,7 @@ fi
 
 install_gradle () {
     GRADLE_VERSION=gradle-3.4.1
-    cd $(mktemp -d) && curl  -L -O https://services.gradle.com/distributions/${GRADLE_VERSION}-bin.zip
+    cd $(mktemp -d) && curl  -L -O https://services.gradle.org/distributions/${GRADLE_VERSION}-bin.zip
     unzip ${GRADLE_VERSION}-bin.zip -d /opt
 }
 
