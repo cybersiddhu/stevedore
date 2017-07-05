@@ -21,3 +21,19 @@ endif
 " To ensure editorconfig plugin works with fugitive {
     let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 " }
+
+" Prettier plugin {
+    " Disable auto format with @format tag
+    let g:prettier#autoformat = 0
+    autocmd BufWritePre *.js,*.json,*.css Prettier
+
+    " print semicolons
+    g:prettier#config#semi = 'false'
+
+    " single quotes over double quotes
+    g:prettier#config#single_quote = 'false' 
+
+    " print spaces between brackets
+    g:prettier#config#bracket_spacing = 'true' 
+
+" }
