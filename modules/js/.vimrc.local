@@ -28,12 +28,12 @@ endif
     autocmd BufWritePre *.js,*.json,*.css Prettier
 
     " print semicolons
-    g:prettier#config#semi = 'false'
+    let g:prettier#config#semi = 'false'
 
     " single quotes over double quotes
-    g:prettier#config#single_quote = 'false' 
+    let g:prettier#config#single_quote = 'false' 
 
     " print spaces between brackets
-    g:prettier#config#bracket_spacing = 'true' 
+    let g:prettier#config#bracket_spacing = 'true' 
 
 " }
