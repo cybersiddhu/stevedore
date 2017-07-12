@@ -3,8 +3,14 @@ Plugin 'editorconfig/editorconfig-vim'
 Plugin 'fleischie/vim-styled-components'
 Plugin 'mitermayer/vim-prettier'
 
-if count(g:sidds_bundle_groups, 'ycmultisnip')
+if count(g:sidds_bundle_groups, 'jssnip')
     " ES2015 code snippets
     Plugin 'epilande/vim-es2015-snippets'
     Plugin 'epilande/vim-react-snippets'
+endif
+
+
+if count(g:sidds_bundle_groups, 'misc')
+        Plugin 'tpope/vim-markdown'
+        Plugin 'spf13/vim-preview'
 endif
