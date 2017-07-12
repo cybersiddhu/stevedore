@@ -5,10 +5,11 @@ VIMBUNDLE=${VIMDIR}/bundle
 
 install_js_modules () {
     yum makecache fast
-    yum -y install cmake gcc-c++ pcre-devel --enablerepo=epel
+    yum -y install cmake gcc-c++ pcre-devel --enablerepo=epel centos-release-scl
+    yum -y install devtoolset-6
     curl --silent --location https://rpm.nodesource.com/setup_6.x | bash -
     yum -y install nodejs
-    npm install -g create-react-app@1.3.3 
+    npm install -g create-react-app@1.3.3 nwb@0.18.7
 }
 
 install_editorconfig_core(){
@@ -46,8 +47,9 @@ install_bundle () {
 install_youcomplete_me () {
     if [ -e ${VIMBUNDLE}/YouCompleteMe ]; then
         echo installing youcompleteme
+        source /opt/rh/devtoolset-6/enable
         cd ${VIMBUNDLE}/YouCompleteMe
-        ./install.sh
+        ./install.py --tern-completer
     fi
 
 }

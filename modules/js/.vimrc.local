@@ -8,7 +8,7 @@
     "let g:ycm_filetype_specific_completion_to_disable = { 'javascript': 1 }
 " }
 "
-if count(g:sidds_bundle_groups, 'ycmultiship')
+if count(g:spf13_bundle_groups, 'youcompleteme')
     " enable completion from tags
     let g:ycm_collect_identifiers_from_tags_files = 1
 
