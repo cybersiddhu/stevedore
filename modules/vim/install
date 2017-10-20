@@ -29,14 +29,11 @@ install_fonts () {
 }
 
 install_packages () {
-    yum -y install ctags ncurses ncurses-libs ncurses-devel fontconfig lua lua-devel python-devel
+    yum -y install ctags ncurses ncurses-libs ncurses-devel fontconfig lua lua-devel python-devel the_silver_searcher
 }
 
 install_vim_config () {
     mkdir -p /custom/bin && mkdir -p /custom/dotfiles/vim 
-
-    curl http://beyondgrep.com/ack-2.10-single-file > /usr/local/bin/ack 
-    chmod 0755 /usr/local/bin/ack
 
     git clone https://github.com/gmarik/Vundle.vim.git /custom/dotfiles/vim/bundle/Vundle.vim
     echo cloning vim configs
