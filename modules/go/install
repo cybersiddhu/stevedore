@@ -7,15 +7,15 @@ install_go14 () {
     GO4TARBALL=go1.4.2.linux-amd64.tar.gz
     GO4DIR=/root/go1.4
     mkdir -p $GO4DIR
-    cd $TMPGO4 && curl -L -s -O https://storage.googleapis.com/golang/${GO4TARBALL}
+    cd $TMPGO4 && curl -L -s -O https://dl.google.com/go/${GO4TARBALL}
     tar xvzf $GO4TARBALL
     mv $TMPGO4/go/* $GO4DIR/
 
 }
 
 install_go () {
-    GOTARBALL=go1.9.1.src.tar.gz
-    GOURL=https://storage.googleapis.com/golang/${GOTARBALL}
+    GOTARBALL=go1.10.2.src.tar.gz
+    GOURL=https://dl.google.com/go/${GOTARBALL}
     GODIR=${CUSTOMDIR}/golang
     mkdir -p $GODIR
 
