@@ -7,9 +7,9 @@ install_js_modules () {
     yum makecache fast
     yum -y install cmake gcc-c++ pcre-devel --enablerepo=epel centos-release-scl
     yum -y install devtoolset-6
-    curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -
+    curl --silent --location https://rpm.nodesource.com/setup_10.x | bash -
     yum -y install nodejs
-    npm install -g create-react-app@1.5.0 nwb@0.21.5
+    npm install -g create-react-app@1.5.2 nwb@0.21.5
 }
 
 install_editorconfig_core(){
