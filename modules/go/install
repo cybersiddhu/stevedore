@@ -14,7 +14,7 @@ install_go14 () {
 }
 
 install_go () {
-    GOTARBALL=go1.10.2.src.tar.gz
+    GOTARBALL=go1.11.2.src.tar.gz
     GOURL=https://dl.google.com/go/${GOTARBALL}
     GODIR=${CUSTOMDIR}/golang
     mkdir -p $GODIR
