@@ -3,7 +3,7 @@ RUN mkdir -p /custom/dotfiles/shell
 RUN curl -o /custom/dotfiles/shell/.zshrc https://raw.githubusercontent.com/cybersiddhu/dotfiles/master/zsh/zshrc.docker \
     && git clone https://github.com/zsh-users/antigen.git /custom/antigen \
     && mkdir -p /custom/dotfiles/.antigen \
-    && rpm -ivh http://download.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-9.noarch.rpm \
+    && yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
     && yum -y install tmux && mkdir -p /custom/dotfiles/tmux \
     && curl -o /custom/dotfiles/tmux/.tmux.conf https://raw.githubusercontent.com/cybersiddhu/dotfiles/master/tmux/tmux.conf
 
