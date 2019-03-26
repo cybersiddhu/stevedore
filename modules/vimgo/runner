@@ -1,0 +1,5 @@
+RUN mkdir -p /custom/runner
+ADD https://raw.githubusercontent.com/cybersiddhu/stevedore/master/modules/vim/install /custom/runner/viminstall
+RUN chmod u+x /custom/runner/viminstall 
+ENV VIMDIR /custom/dotfiles/vim
+RUN /custom/runner/viminstall 

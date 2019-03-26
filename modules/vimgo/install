@@ -1,0 +1,64 @@
+#!/bin/zsh
+
+#Install latest vim and include python support if present
+CUSTOMDIR=/custom
+VIMDIR=${CUSTOMDIR}/dotfiles/vim
+VIMVERSION=vim-7.4.2367.tar.gz
+
+install_vim_from_src () {
+    VIMURL=https://github.com/vim/vim/archive/v7.4.2367.tar.gz
+    TMPVIM=$(mktemp -d)
+    cd $TMPVIM && curl -s -k -L -o ${VIMVERSION} $VIMURL
+    tar xvzf ${VIMVERSION} && cd vim-7.4.2367
+
+    ./configure --enable-pythoninterp --enable-multibyte \
+        --with-features=huge --enable-gui=no \
+        --with-x=yes --enable-luainterp=yes --with-lua-prefix=/usr
+    make -j6
+    cp src/vim ${CUSTOMDIR}/bin/
+    cp -R runtime $VIMDIR/
+}
+
+install_fonts () {
+# setup for powerfile fonts
+    mkdir -p /usr/share/fonts
+    curl -L -o /usr/share/fonts/Inconsolata-powerline.otf https://raw.githubusercontent.com/powerline/fonts/master/Inconsolata/Inconsolata%20for%20Powerline.otf
+    cd /etc/fonts/conf.d 
+    ln -sf /usr/share/fontconfig/conf.avail/10-powerline-symbols.conf .
+    fc-cache -vf /usr/share/fonts
+}
+
+install_packages () {
+    yum -y install ctags ncurses ncurses-libs ncurses-devel fontconfig lua lua-devel python-devel the_silver_searcher
+}
+
+install_vim_config () {
+    mkdir -p /custom/bin && mkdir -p /custom/dotfiles/vim 
+
+    git clone https://github.com/gmarik/Vundle.vim.git /custom/dotfiles/vim/bundle/Vundle.vim
+    echo cloning vim configs
+    git clone --branch feature/golang https://github.com/cybersiddhu/spf13-vim.git /custom/dotfiles/vim/spf13
+
+    ln -sf /custom/dotfiles/vim/spf13/.vimrc.before /custom/dotfiles/vim/.vimrc.before
+    ln -sf /custom/dotfiles/vim/spf13/.vimrc /custom/dotfiles/vim/.vimrc 
+    ln -sf /custom/dotfiles/vim/spf13/.vimrc.bundles /custom/dotfiles/vim/.vimrc.bundles
+}
+
+
+install_bundle () {
+    echo installing bundle
+    $CUSTOMDIR/bin/vim -e -s -u ${VIMDIR}/.vimrc +PluginInstall +qall
+    echo Done installing bundle
+}
+
+main () {
+    install_packages
+    install_vim_config
+    install_vim_from_src
+    install_bundle
+    install_fonts
+}
+
+main
+
+
